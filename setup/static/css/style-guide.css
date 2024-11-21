@@ -1,0 +1,31 @@
+:root {
+    /* Paleta de cores */
+    --primary: #172f4a;
+    --secondary: #0000ff;
+    --black: #0d0d0d;
+    --gray-primary: #606060;
+    --gray-secondary: #3d3d3d;
+    --white-primary: #ffffff;
+    --white-secondary: #dcdcdc;
+  
+    /* Tamanhos e pesos para títulos */
+    --font-size-h1: 46px;
+    --font-weight-h1: 700;
+  
+    --font-size-h2: 36px;
+    --font-weight-h2: 400;
+  
+    --font-size-h3: 22px;
+    --font-weight-h3: 700;
+  
+    /* Tamanhos e pesos para botões */
+    --font-size-b1: 20px;
+    --font-size-b2: 18px;
+    --font-weight-button: 700;
+  
+    /* Tamanhos e pesos para parágrafos */
+    --font-size-p1: 20px;
+    --font-size-p2: 16px;
+    --font-size-p3: 14px;
+    --font-weight-paragraph: 400;
+  }

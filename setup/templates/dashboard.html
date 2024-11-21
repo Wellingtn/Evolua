@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard do Aluno</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/dashboard.css' %}" media="screen" />
+  </head>
+  <body>
+    <!-- Barra Lateral -->
+    <div class="sidebar">
+      <img
+        src="{% static '../static/css/images/evolua-logo-branco(1).svg' %}"
+        href="{% url 'setup:dashboard' %}"
+        alt="Evolua Logo"
+      />
+      <a href="{% url 'setup:dashboard' %}">Visão Geral</a>
+      <a href="#semestre">Semestres</a>
+      <a>Trilha de Aprendizagem</a>
+      <a href="{% url 'setup:login' %}">Sair</a>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <div class="main-content">
+      <div class="header">
+        <h1>Visão Geral</h1>
+        <div class="student-info">
+          <span>ALUNO(A): </span>
+          <h3>{{ aluno.nome_completo }}</h3>
+        </div>
+      </div>
+
+      <!-- Cards com dados do aluno -->
+      <div class="card-container">
+        <div class="card">
+          <h3>Progresso</h3>
+          <p>{{ progresso }}%</p>
+        </div>
+        <div class="card">
+          <h3>Quizzes Respondidos</h3>
+          <p>{{ quizzes_respondidos }}</p>
+        </div>
+        <div class="card">
+          <h3>Atividades Pendentes</h3>
+          <p>{{ atividades_pendentes }}</p>
+        </div>
+        <div class="card">
+          <h3>Nota Média</h3>
+          <p>{{ nota_media }}</p>
+        </div>
+      </div>
+
+      <!-- Container do gráfico e quiz -->
+      <div class="content-container">
+        <!-- Gráfico de exemplo -->
+        <div class="chart-container">
+          <h3>Desempenho</h3>
+          <canvas id="chart"></canvas>
+        </div>
+        <!-- Histórico de quizzes respondidos -->
+        <div class="quiz-history">
+          <h3>Histórico de Quizzes</h3>
+          {% for quiz in historico_quizzes %}
+          <div class="quiz-item">
+            <span>{{ quiz.pilar }}</span><span>Nota: {{ quiz.nota }}</span>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Pilares FOIL -->
+      <div class="foil-container">
+        <h2>Pilares FOIL</h2>
+        {% for pilar, descricao in pilares %}
+        <div class="valores-foil">
+          <p1>{{ pilar }}</p1>
+          <p>{{ descricao }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Script para o gráfico (exemplo com Chart.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      const ctx = document.getElementById("chart").getContext("2d");
+      const chart = new Chart(ctx, {
+        type: "line", // Tipo de gráfico
+        data: {
+          labels: {{ meses | safe }}, // Meses fornecidos dinamicamente
+          datasets: [
+            {
+              label: "Nota Média por Mês",
+              data: {{ notas | safe }}, // Dados fornecidos dinamicamente
+              borderColor: "rgba(75, 192, 192, 1)",
+              borderWidth: 2,
+              fill: false,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 10,
+            },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

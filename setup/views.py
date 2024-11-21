@@ -37,3 +37,7 @@ def dashboard(request):
         return redirect('setup:login')  # Redireciona se o ID não for encontrado
 
     return render(request, 'dashboard.html', {'aluno': aluno})
+
+def quiz(request):
+    return render(request, 'quiz.html')
+

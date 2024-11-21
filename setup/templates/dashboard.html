@@ -17,7 +17,7 @@
       />
       <a href="{% url 'setup:dashboard' %}">Visão Geral</a>
       <a href="#semestre">Semestres</a>
-      <a>Trilha de Aprendizagem</a>
+      <a href="{% url 'setup:quiz' %}">Trilha de Aprendizagem</a>
       <a href="{% url 'setup:login' %}">Sair</a>
     </div>
 
@@ -27,7 +27,7 @@
         <h1>Visão Geral</h1>
         <div class="student-info">
           <span>ALUNO(A): </span>
-          <h3>{{ aluno.nome_completo }}</h3>
+          <h3>{{aluno}}</h3>
         </div>
       </div>
 

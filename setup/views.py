@@ -41,3 +41,6 @@ def dashboard(request):
 def quiz(request):
     return render(request, 'quiz.html')
 
+def professor(request):
+    return render(request, 'professor.html')
+

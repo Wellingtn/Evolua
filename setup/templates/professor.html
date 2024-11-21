@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard do Professor</title>
+    <link rel="stylesheet" type="text/css" href="../../../static/css/professor.css" media="screen" />
+  </head>
+  <body>
+    <!-- Barra Lateral -->
+    <div class="sidebar">
+      <img
+        src="../../../static/css/images/evolua-logo-branco(1).svg"
+        href="/dashboard_professor/"
+        alt="Evolua Logo"
+      />
+      <a href="/dashboard_professor/">Visão Geral</a>
+      <a href="{% url 'setup:login' %}">Sair</a>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <div class="main-content">
+      <div class="header">
+        <h1>Visão Geral</h1>
+        <div class="teacher-info">
+          <span>Professor(A): </span>
+          <h3>João Silva</h3>
+        </div>
+      </div>
+
+      <!-- Cards com dados do professor -->
+      <div class="card-container1">
+        <div class="card">
+          <h3>Total de cursos</h3>
+          <p>3</p>
+        </div>
+        <div class="card">
+          <h3>Total de Alunos</h3>
+          <p>45</p>
+        </div>
+        <div class="card">
+          <h3>Total de alguma coisa</h3>
+          <p>45</p>
+        </div>
+        <div class="card">
+          <h3>Total de outra coisa</h3>
+          <p>45</p>
+        </div>
+        </div>
+        <h1>Pilares</h1>
+
+        <div class="card-container2">
+
+        <div class="card">
+          <h3>Pilar Trabalho</h3>
+          <p>80%</p>
+        </div>
+        <div class="card">
+          <h3>Pilar Estudo</h3>
+          <p>15%</p>
+        </div>
+        <div class="card">
+          <h3>Pilar Alta Moralidade</h3>
+          <p>15%</p>
+        </div>
+        <div class="card">
+          <h3>Pilar Internacionalidade</h3>
+          <p>15%</p>
+        </div>
+        <div class="card">
+          <h3>Pilar FOIL</h3>
+          <p>15%</p>
+        </div>
+      </div>
+
+      <!-- Tabela de Alunos -->
+      <div class="students-table">
+        <h3>Alunos e Notas</h3>
+        <table>
+            <thead>
+              <tr>
+                <th>Aluno</th>
+                <th>Pilar Trabalho</th>
+                <th>Pilar Estudo</th>
+                <th>Pilar Alta Moralidade</th>
+                <th>Pilar Internacionalidade</th>
+                <th>Pilar FOIL</th>
+                <th>Média Final</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Ana Costa</td>
+                <td>9</td>
+                <td>8</td>
+                <td>7</td>
+                <td>8.0</td>
+                <td>8</td>
+                <td>7</td>
+                <td class="actions">
+                  <button class="btn btn-details">Detalhes</button>
+                  <button class="btn btn-export">Exportar PDF</button>
+                </td>
+              </tr>
+              <tr>
+                <td>Bruno Almeida</td>
+                <td>8</td>
+                <td>9</td>
+                <td>8</td>
+                <td>8.3</td>
+                <td>8</td>
+                <td>8.3</td>
+                <td class="actions">
+                  <button class="btn btn-details">Detalhes</button>
+                  <button class="btn btn-export">Exportar PDF</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+    </div>
+  </div>
+
+    <!-- Script para o gráfico (exemplo com Chart.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      const ctx = document.getElementById("chart").getContext("2d");
+      const chart = new Chart(ctx, {
+        type: "line", // Tipo de gráfico
+        data: {
+          labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho"], // Meses de exemplo
+          datasets: [
+            {
+              label: "Média de Notas por Turma",
+              data: [7, 8, 6, 9, 8, 8.5], // Dados de exemplo
+              borderColor: "rgba(75, 192, 192, 1)",
+              borderWidth: 2,
+              fill: false,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 10,
+            },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

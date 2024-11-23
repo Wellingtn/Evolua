@@ -6,149 +6,135 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../../../static/css/quiz.css" media="screen" />
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/quiz.css' %}" />
     <title>FORMULÁRIO - EVOLUA</title>
 </head>
 
 <body>
     <header class="navbar">
-        <img src="../../../static/css/images/evolua-logo-branco(1).svg" alt="Evolua Logo">
+        <img src="../../../static/assets/evolua-logo-branco.svg" alt="Evolua Logo">
         <div class="links">
-            <a href="/dashboard/" class="button-link">Visão Geral</a>
+            <a href="dashboard_aluno/" class="button-link">Visão Geral</a>
             <a href="#semestre" class="button-link">Semestres</a>
-            <a href="/quiz/" class="button-link">Trilha de Aprendizagem</a> 
+            <!-- <a href="/quiz/" class="button-link">Trilha de Aprendizagem</a> -->
             <a href="/login/" class="button-link">Sair</a>
         </div>
     </header>
-        <section class="container-topo">
-            <div class="titulo">
-                <h1>Quiz - Avaliação</h1>
-            </div>
-                <p>Este questionário busca entender as competências para determinar se você possui as características e habilidades ideais.</p>
-        </section>
-            <div class="container-perguntas">
-                <h2>Pilar 1: Trabalho</h2>
-                <div class="question">
-                    <p>1. Você está atualmente empregado?</p>
-                    <div class="options">
-                        <input type="radio" id="empregado-sim" name="empregado" value="Sim">
-                        <label for="empregado-sim">Sim</label>
-    
-                        <input type="radio" id="empregado-nao" name="empregado" value="Não">
-                        <label for="empregado-nao">Não</label>
-                    </div>
-                </div>
-                <div class="question">
-                    <p>2. Você está satisfeito(a) no seu trabalho atual?</p>
-                    <div class="options">
-                        <input type="radio" id="satisfeito-sim" name="satisfeito" value="Sim">
-                        <label for="satisfeito-sim">Sim</label>
-    
-                        <input type="radio" id="satisfeito-nao" name="satisfeito" value="Não">
-                        <label for="satisfeito-nao">Não</label>
-                    </div>
+
+    <section class="container-topo">
+        <div class="titulo">
+            <h1>Quiz - Avaliação</h1>
+        </div>
+        <p>Este questionário busca entender as competências para determinar se você possui as características e habilidades ideais.</p>
+    </section>
+
+    <form action="enviar_formulario" method="POST">
+
+        <div class="container-perguntas">
+            <h2>Pilar 1: Trabalho</h2>
+            <div class="question-trabalho" id="pergunta-1">
+                <h3>1. Você está atualmente empregado?</h3>
+                <div class="options">
+                    <input type="radio" id="empregado-sim" name="empregado" value="Sim" required>
+                    <label for="empregado-sim">Sim</label>
+                    <input type="radio" id="empregado-nao" name="empregado" value="Não" required>
+                    <label for="empregado-nao">Não</label>
                 </div>
             </div>
-
-
-
-            <div class="container-perguntas">
-                <h2>Pilar 2: Estudo</h2>
-                <div class="question">
-                    <p>3. Você se considera uma pessoa com conhecimento em tecnologia?</p>
-                    <div class="options">
-                        <input type="radio" id="tecnologia-sim" name="tecnologia" value="Sim">
-                        <label for="tecnologia-sim">Sim</label>
-
-                        <input type="radio" id="tecnologia-nao" name="tecnologia" value="Não">
-                        <label for="tecnologia-nao">Não</label>
-                    </div>
-                </div>
-                <div class="question">
-                    <p>4. Quais habilidades técnicas você tem que podem auxiliar na sua carreira?</p>
-                    <textarea name="habilidades" rows="3" placeholder="Descreva suas habilidades"></textarea>
+            <div class="question-trabalho2" id="pergunta-2">
+                <h3>2. Você está satisfeito(a) no seu trabalho atual?</h3>
+                <div class="options">
+                    <input type="radio" id="satisfeito-sim" name="satisfeito" value="Sim" required>
+                    <label for="satisfeito-sim">Sim</label>
+                    <input type="radio" id="satisfeito-nao" name="satisfeito" value="Não" required>
+                    <label for="satisfeito-nao">Não</label>
                 </div>
             </div>
-
-            <div class="container-perguntas">
-                <h2>Pilar 3: Alta Moralidade</h2>
-                <div class="question">
-                    <p>5. Você tem facilidade de se comunicar com as pessoas?</p>
-                    <div class="options">
-                        <input type="radio" id="empregado-sim" name="empregado" value="Sim">
-                        <label for="empregado-sim">Sim</label>
-    
-                        <input type="radio" id="empregado-nao" name="empregado" value="Não">
-                        <label for="empregado-nao">Não</label>
-                    </div>
-                </div>
-                <div class="question">
-                    <p>6. Você se considera uma pessoas organizada com suas atividades diárias?</p>
-                    <div class="options">
-                        <input type="radio" id="satisfeito-sim" name="satisfeito" value="Sim">
-                        <label for="satisfeito-sim">Sim</label>
-    
-                        <input type="radio" id="satisfeito-nao" name="satisfeito" value="Não">
-                        <label for="satisfeito-nao">Não</label>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="container-perguntas">
-                <h2>Pilar 4: Internacionalidade</h2>
-                <div class="question">
-                    <p>7. Você sabe falar um idioma estrangeiro?</p>
-                    <div class="options">
-                        <input type="radio" id="empregado-sim" name="empregado" value="Sim">
-                        <label for="empregado-sim">Sim</label>
-    
-                        <input type="radio" id="empregado-nao" name="empregado" value="Não">
-                        <label for="empregado-nao">Não</label>
-                    </div>
-                </div>
-                <div class="question">
-                    <p>8. Você tem interesse em aprender sobre culturas diferentes?</p>
-                    <div class="options">
-                        <input type="radio" id="satisfeito-sim" name="satisfeito" value="Sim">
-                        <label for="satisfeito-sim">Sim</label>
-    
-                        <input type="radio" id="satisfeito-nao" name="satisfeito" value="Não">
-                        <label for="satisfeito-nao">Não</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="container-perguntas">
-                <h2>Pilar 5: Foil</h2>
-                <div class="question">
-                    <div class="question">
-                        <p>9. Você sabe qual é a sua vocação (a coisa que você sente que nasceu para fazer)?</p>
-                        <textarea name="habilidades" rows="3" placeholder="Descreva suas habilidades"></textarea>
-                    </div>
-                    <p>10. Você pratica alguma atividade artística ou física?(ex: pintura, escultura, tocar um instrumento, praticar esportes, dançar, etc)</p>
-                    <div class="options">
-                        <input type="radio" id="tecnologia-sim" name="tecnologia" value="Sim">
-                        <label for="tecnologia-sim">Sim</label>
-
-                        <input type="radio" id="tecnologia-nao" name="tecnologia" value="Não">
-                        <label for="tecnologia-nao">Não</label>
-                    </div>
-                    <div class="question">
-                        <p>11. Quais são suas soft skills mais valorizadas (ex: trabalho em equipe, resolução de conflitos, etc)?</p>
-                        <textarea name="habilidades" rows="3" placeholder="Descreva suas habilidades"></textarea>
-                    </div>
-                    <div class="question">
-                        <p>12. Onde você quer estar daqui a 1 ano, 5 e 10 anos? (Inclua suas metas de carreira e desenvolvimento pessoal)</p>
-                        <textarea name="habilidades" rows="3" placeholder="Descreva suas habilidades"></textarea>
-                    </div>
-                </div>
-            </div>
-
-
-        <div class="footer">
-            <p>&copy; 2024 Avaliação de Competências</p>
         </div>
 
+        <div class="container-perguntas">
+            <h2>Pilar 2: Estudo</h2>
+            <div class="question-estudo" id="pergunta-3">
+                <h3>3. Você se considera uma pessoa com conhecimento em tecnologia?</h3>
+                <div class="options">
+                    <input type="radio" id="tecnologia-sim" name="tecnologia" value="Sim" required>
+                    <label for="tecnologia-sim">Sim</label>
+                    <input type="radio" id="tecnologia-nao" name="tecnologia" value="Não" required>
+                    <label for="tecnologia-nao">Não</label>
+                </div>
+            </div>
+            <div class="question-estudo2" id="pergunta-4">
+                <h3>4. Quais habilidades técnicas você tem que podem auxiliar na sua carreira?</h3>
+                <textarea name="habilidades" rows="3" placeholder="Descreva suas habilidades" required></textarea>
+            </div>
+        </div>
+
+        <div class="container-perguntas">
+            <h2>Pilar 3: Alta Moralidade</h2>
+            <div class="question-moralidade" id="pergunta-5">
+                <h3>5. Você tem facilidade de se comunicar com as pessoas?</h3>
+                <div class="options">
+                    <input type="radio" id="moralidade-sim" name="moralidade" value="Sim" required>
+                    <label for="moralidade-sim">Sim</label>
+                    <input type="radio" id="moralidade-nao" name="moralidade" value="Não" required>
+                    <label for="moralidade-nao">Não</label>
+                </div>
+            </div>
+            <div class="question-moralidade2" id="pergunta-6">
+                <h3>6. Você se considera uma pessoa organizada com suas atividades diárias?</h3>
+                <div class="options">
+                    <input type="radio" id="organizada-sim" name="organizada" value="Sim" required>
+                    <label for="organizada-sim">Sim</label>
+                    <input type="radio" id="organizada-nao" name="organizada" value="Não" required>
+                    <label for="organizada-nao">Não</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-perguntas">
+            <h2>Pilar 4: Internacionalidade</h2>
+            <div class="question-internacionalidade" id="pergunta-7">
+                <h3>7. Você sabe falar um idioma estrangeiro?</h3>
+                <div class="options">
+                    <input type="radio" id="idioma-sim" name="idioma" value="Sim" required>
+                    <label for="idioma-sim">Sim</label>
+                    <input type="radio" id="idioma-nao" name="idioma" value="Não" required>
+                    <label for="idioma-nao">Não</label>
+                </div>
+            </div>
+            <div class="question-internacionalidade2" id="pergunta-8">
+                <h3>8. Você tem interesse em aprender sobre culturas diferentes?</h3>
+                <div class="options">
+                    <input type="radio" id="cultura-sim" name="cultura" value="Sim" required>
+                    <label for="cultura-sim">Sim</label>
+                    <input type="radio" id="cultura-nao" name="cultura" value="Não" required>
+                    <label for="cultura-nao">Não</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-perguntas">
+            <h2>Pilar 5: Foil</h2>
+            <div class="question-foil" id="pergunta-9">
+                <h3>9. Você sabe qual é a sua vocação (a coisa que você sente que nasceu para fazer)?</h3>
+                <textarea name="vocacao" rows="3" placeholder="Descreva sua vocação" required></textarea>
+            </div>
+            <div class="question-foil2" id="pergunta-10">
+                <h3>10. Você pratica alguma atividade artística ou física? (ex: pintura, escultura, tocar um instrumento, praticar esportes, dançar, etc)</h3>
+                <div class="options">
+                    <input type="radio" id="atividade-sim" name="atividade" value="Sim" required>
+                    <label for="atividade-sim">Sim</label>
+                    <input type="radio" id="atividade-nao" name="atividade" value="Não" required>
+                    <label for="atividade-nao">Não</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <button type="submit" class="btn-submit">Enviar Respostas</button>
+        </div>
+
+    </form>
 </body>
 </html>

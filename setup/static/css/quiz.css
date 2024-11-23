@@ -1,181 +1,122 @@
 @import url(style-guide.css); 
 
 body {
-    font-family: "Montserrat", sans-serif;
-    font-weight: 400;
     margin: 0;
     padding: 0;
-    color: var(--white-primary);
+    font-family: "Montserrat", sans-serif;
+    font-size: 16px;
     background-color: var(--white-primary);
+    color: var(--primary);
 }
 
+/* Navbar */
 .navbar {
     background-color: var(--primary);
     color: var(--white-primary);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 50px 20px 100px;
+    padding: 20px 50px;
+}
+
+.navbar img {
+    height: 50px;
+}
+
+.links {
+    display: flex;
+    gap: 20px;
 }
 
 .button-link {
-    display: inline-block;
     padding: 10px 20px;
     text-decoration: none;
-    color: #fff;
-    font-family: 'Montserrat', sans-serif; 
+    color: var(--white-primary);
     font-weight: 700;
-    text-align: center;
     border-radius: 8px;
-    transition: background-color 0.3s, transform 0.3s;
+    transition: 0.3s;
 }
 
 .button-link:hover {
-    background-color: #FFF; 
-    color: #00264d;
-    border-radius: 8px;
-    transform: scale(1.05); 
+    background-color: var(--white-primary);
+    color: var(--primary);
+    transform: scale(1.05);
 }
 
-.container-topo{
+/* Título */
+.container-topo {
     text-align: center;
     background-color: var(--primary);
-    color: #fff;
-    padding: 20px;
-    font-size: 1.5em;
-    padding: 20px 0px 40px 10px ;
+    color: var(--white-primary);
+    padding: 40px 20px;
 }
 
-.container-topo .titulo {
-    display: flex;
-    align-items: center;
-    text-align: center;
-    margin-left: 675px;
-}
-
-.container-topo h2 {
-    font-size: 24px;
-    font-weight: bold;
-    margin: 50;
-    padding: 0px 0px 0px 0px;
+.container-topo h1 {
+    font-size: 2.5em;
 }
 
 .container-topo p {
-    font-size: 16px;
-    line-height: 1.6;
+    font-size: 1.2em;
     margin-top: 20px;
-    padding: 0px 100px 0px 55px;
 }
 
-.container-meio {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 50px 0px 150px;
-}
-
+/* Perguntas */
 .container-perguntas {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
     background: var(--white-primary);
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-
-input[type="radio"] {
-    display: none;
-}
-  
-label {
-    width: 20px;
-    height: 20px;
-    background-color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #1a2e45;
-    font-size: 12px;
-    cursor: pointer;
-    text-align: center;
-}
-
-.container-perguntas {
-    border: 1px solid rgba(128, 128, 128, 0.331);
-
-    padding: 50px;
-    border-radius: 20px;
+    border: 1px solid var(--gray-border);
+    border-radius: 12px;
+    box-shadow: 0px 4px 12px var(--shadow);
 }
 
 .container-perguntas h2 {
     color: var(--primary);
-}
-
-.section {
-    margin: 30px 0;
-}
-
-.section h2 {
-    font-size: 1.4em;
-    color: #00264d;
-    border-bottom: 2px solid #ccc;
-    padding-bottom: 8px;
+    font-size: 1.8em;
     margin-bottom: 20px;
-    text-align: left;
-
+    border-bottom: 2px solid var(--gray-border);
 }
 
 .question {
-    display: flex;
-    text-align: center;
-    align-items: center;
-    margin: 0px;
-    padding: 0px;
-    background-color: var(--white-primary);
-    color: var(--primary);
+    margin: 20px 0;
+    text-align: left;
 }
 
-.question p{
-    padding: 0px;
-    margin-right: 20px;
-}
-
-.question label {
-    font-weight: 600;
-    color: #333;
-    display: block;
+.question h3 {
+    font-size: 1.2em;
     margin-bottom: 10px;
-    
 }
 
-.question input[type="text"], .question textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1em;
-}
-
-.question .options {
+.options {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    gap: 10px;
 }
 
+input[type="radio"] {
+    display: none;
+}
 
-.options label {
-    font-weight: normal;
-    padding: 10px 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+label {
+    display: inline-block;
+    padding: 10px 15px;
+    background: var(--gray-border);
+    border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
-.options input[type="radio"]:checked + label {
-    background-color: #00264d;
-    color: #fff;
-    border-color: #00264d;
+label:hover {
+    background: var(--primary);
+    color: var(--white-primary);
+}
+
+/* Rodapé */
+.footer {
+    text-align: center;
+    padding: 20px;
+    background: var(--primary);
+    color: var(--white-primary);
+    margin-top: 40px;
 }

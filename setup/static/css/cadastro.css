@@ -1,4 +1,4 @@
-@import url("/static/style-guide.css");
+@import url(style-guide.css);
 
 body {
     font-family: "Montserrat", sans-serif; 
@@ -6,7 +6,8 @@ body {
     font-weight: 400; 
     font-style: normal; 
     display: flex; 
-    height: 100vh; 
+    height: 110vh; 
+    width: 100%;
     padding: 0; 
     margin: 0; 
     color: var(--white-primary); 
@@ -15,12 +16,22 @@ body {
 .left-side {
     background: var(--primary);
     color: var(--white-primary);
-    padding: 20px; 
-    width: 120%; 
+    padding: 80px; 
+    width: 110%; 
     display: flex; 
     flex-direction: column; 
     justify-content: center; 
     align-items: center; 
+}
+
+.inputs-curtos{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+#ra {
+    width: 50%
 }
 
 input {
@@ -54,37 +65,27 @@ button {
     box-sizing: border-box; 
 }
 
-.right-side, img {
+img {
     display: flex; 
-    align-items: center; 
+    align-items: flex-start; 
+    justify-content: end;
     height: 100%; 
     border-radius: 20px 0 0 20px; 
     opacity: 1; 
     width: 100%; 
     margin-left: -10px; 
-}
+    background-color: var(--primary);
 
-
-#Nome, #RA{
-    width: 30%;
-    margin-left: 160px;
 }
-
-#Sobrenome, #Semestre{
-    width: 30%;
-}
-
-#Curso{
-    width: 30%;
-    margin-left: 160px;
-}
-#Professor{
-    width: 30%;
-}
-
-.inputs-largos{
-    width: 60%;
-    margin-left: 160px;
+.right-side {
+    display: flex; 
+    align-items: center;
+    flex-direction: r; 
+    /* height: 100%;  */
+    border-radius: 20px 0 0 20px; 
+    opacity: 1; 
+    width: 100%; 
+    background-color: var(--primary);
 }
 
 select {

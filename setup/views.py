@@ -1,15 +1,21 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.hashers import make_password, check_password
+from django.contrib import messages
 from .forms import AlunoForm
 from .models import Aluno
+from django.shortcuts import render
+from datetime import datetime
+from .models import Pilar
 
 def cadastro(request):
     if request.method == "POST":
         form = AlunoForm(request.POST)
         if form.is_valid():
             aluno = form.save(commit=False)
-            aluno.senha = form.cleaned_data['senha']  # Salvar senha limpa (será ajustado depois para hashing)
+            aluno.senha = make_password(form.cleaned_data['senha'])  # Usando hashing para salvar a senha
             aluno.save()
-            return redirect('/login/')  # Redireciona para a página de login
+            request.session['aluno_id'] = aluno.id  # Armazenando o ID do aluno na sessão
+            return redirect('/dashboard/')  # Redireciona para o dashboard após cadastro
     else:
         form = AlunoForm()
     return render(request, 'cadastro.html', {'form': form})
@@ -19,9 +25,12 @@ def login(request):
         email = request.POST.get('email')
         senha = request.POST.get('senha')
         try:
-            aluno = Aluno.objects.get(email=email, senha=senha)  # Verifica credenciais
-            request.session['aluno_id'] = aluno.id  # Armazena o ID na sessão
-            return redirect('/dashboard/')  # Redireciona para o dashboard
+            aluno = Aluno.objects.get(email=email)  # Encontra o aluno pelo e-mail
+            if check_password(senha, aluno.senha):  # Compara a senha informada com a senha armazenada
+                request.session['aluno_id'] = aluno.id  # Armazena o ID na sessão
+                return redirect('/dashboard/')  # Redireciona para o dashboard
+            else:
+                messages.error(request, "E-mail ou senha inválidos.")
         except Aluno.DoesNotExist:
             messages.error(request, "E-mail ou senha inválidos.")
     return render(request, 'login.html')
@@ -39,8 +48,8 @@ def dashboard(request):
     return render(request, 'dashboard.html', {'aluno': aluno})
 
 def quiz(request):
-    return render(request, 'quiz.html')
+    pilars = Pilar.objects.prefetch_related('perguntas__opcoes').all()
+    return render(request, 'quiz.html', {'pilars': pilars, 'year': datetime.now().year})
 
 def professor(request):
     return render(request, 'professor.html')
-

@@ -7,7 +7,7 @@ from django.contrib.auth.hashers import make_password, check_password
 
 
 def seleciona_usuario(request):
-    return render(request, 'seleciona_usuario.html')
+    return render(request, 'selecionar_usuario.html')
 
 def cadastro(request):
     if request.method == "POST":

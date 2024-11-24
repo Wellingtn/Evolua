@@ -3,11 +3,8 @@
 ## Oque falta:
     
     - Ajustes na tela de cadastro (Cadastro)
-    - Fazer os alunos ficarem na turma(Banco de dados)
-    - Fazer aparecer as turmas de certo professor(Dashboard Proofessor)
-    
-    
-
+    - Ajustes na tela de selecionar usuario(selecao)
+  
 ## Oque foi feito:
     - Login e cadastro funcional (Login e Cadastro)
     - Tela de Dashboard com os dados do usuario (Dashboard)
@@ -18,7 +15,8 @@
     - Calculo de notas do Dashboard (Dashboard)
     - Tabela no banco de dados para as respostas do questionario (Questionario)
     - Pilares Foil (Dashboard)
-
+    - Fazer os alunos ficarem na turma(Banco de dados)
+    - Fazer aparecer as turmas de certo professor(Dashboard Proofessor)
 
 ## Como rodar o projeto:
     1. Clone o repositorio

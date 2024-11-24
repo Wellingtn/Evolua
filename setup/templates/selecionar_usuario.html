@@ -6,17 +6,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700;900&display=swap" rel="stylesheet">
-    <!--{% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/seleciona_usuario.css' %}" media="screen" />>-->
-    <title>Selecione o Tipo de Usuário - Evolua</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/selecionar_usuario.css' %}" media="screen" />
+    <title>Selecionar Usuário - Evolua</title>
 </head>
 <body>
-    <div class="container">
-        <h2>Selecione o Tipo de Usuário</h2>
-        <div class="button-container">
+    <div class="left-side">
+        <img src="{% static 'css/images/evolua-logo-branco(1).svg' %}" alt="Evolua Logo" class="logo">
+        <h2>Bem-vindo ao sistema Evolua</h2>
+        <p>Selecione o tipo de usuário para continuar.</p>
+        <div class="form_button">
             <a href="{% url 'setup:login' %}" class="button">Aluno</a>
             <a href="{% url 'setup:login_professor' %}" class="button">Professor</a>
         </div>
+    </div>
+    <div class="right-side">
+        <img src="{% static 'css/images/imagem-login-right(1).png' %}" alt="Imagem de Seleção de Usuário">
     </div>
 </body>
 </html>

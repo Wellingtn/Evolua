@@ -1,0 +1,75 @@
+@import url(style-guide.css);
+
+body {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    display: flex;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    color: var(--white-primary);
+}
+
+.left-side {
+    background: var(--primary);
+    color: var(--white-primary);
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    width: 170px;
+    height: 56px;
+    margin-bottom: 30px;
+}
+
+.button {
+    width: 100%;
+    padding: 18px;
+    background-color: var(--white-primary);
+    color: var(--primary);
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: var(--font-size-b2);
+    font-weight: var(--font-weight-button);
+    box-sizing: border-box;
+    text-align: center;
+    text-decoration: none;
+    margin-bottom: 15px;
+    display: inline-block;
+}
+
+.right-side,
+img {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    border-radius: 20px 0 0 20px;
+    opacity: 1;
+    width: 100%;
+    margin-left: -10px;
+}
+
+.form_button {
+    width: 100%;
+    max-width: 300px;
+}
+
+/* Ajuste para que o seletor img não afete o logo */
+.right-side img {
+    margin-left: -10px;
+}
+
+.logo {
+    margin-left: 0;
+    width: 170px;
+    height: 56px;
+}
+

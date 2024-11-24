@@ -3,7 +3,7 @@
 ## Oque falta:
     
     - Ajustes na tela de cadastro (Cadastro)
-    - Ajustes na tela de selecionar usuario(selecao)
+    - Fazer aparecer os formularios já respondidos (Dashboard)
   
 ## Oque foi feito:
     - Login e cadastro funcional (Login e Cadastro)
@@ -17,6 +17,7 @@
     - Pilares Foil (Dashboard)
     - Fazer os alunos ficarem na turma(Banco de dados)
     - Fazer aparecer as turmas de certo professor(Dashboard Proofessor)
+    - Ajustes na tela de selecionar usuario(selecao)
 
 ## Como rodar o projeto:
     1. Clone o repositorio

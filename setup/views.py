@@ -1,9 +1,13 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.db.models import Avg
-from .forms import AlunoForm, ProfessorForm, RespostaForm
+from .forms import AlunoForm, ProfessorForm, RespostaForm, TurmaForm
 from .models import Aluno, Professor, Turma, Resposta
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password
+
+
+def seleciona_usuario(request):
+    return render(request, 'seleciona_usuario.html')
 
 def cadastro(request):
     if request.method == "POST":
@@ -28,6 +32,21 @@ def login(request):
         except Aluno.DoesNotExist:
             messages.error(request, "E-mail ou senha inválidos.")
     return render(request, 'login.html')
+
+def login_professor(request):
+    if request.method == "POST":
+        email = request.POST.get('email')
+        senha = request.POST.get('senha')
+        try:
+            professor = Professor.objects.get(email=email)
+            if check_password(senha, professor.senha):
+                request.session['professor_id'] = professor.id
+                return redirect('setup:professor')
+            else:
+                messages.error(request, "E-mail ou senha inválidos.")
+        except Professor.DoesNotExist:
+            messages.error(request, "E-mail ou senha inválidos.")
+    return render(request, 'login_professor.html')
 
 def calcular_pontuacao(resposta):
     pontos = 0
@@ -139,6 +158,81 @@ def cadastro_professor(request):
 
 
 def professor(request):
-    # Implemente a lógica para a página do professor
-    return render(request, 'professor.html')
+    professor_id = request.session.get('professor_id')
+    if not professor_id:
+        return redirect('setup:login_professor')
     
+    try:
+        professor = Professor.objects.get(id=professor_id)
+        turmas = Turma.objects.filter(professor=professor)
+        
+        total_cursos = turmas.count()
+        total_alunos = sum(turma.alunos.count() for turma in turmas)
+        
+        # Cálculo das médias dos pilares (exemplo simplificado)
+        pilares = ['Trabalho', 'Estudo', 'Alta Moralidade', 'Internacionalidade', 'FOIL']
+        medias_pilares = {pilar: 0 for pilar in pilares}
+        
+        alunos_info = []
+        for turma in turmas:
+            for aluno in turma.alunos.all():
+                respostas = Resposta.objects.filter(aluno=aluno)
+                if respostas.exists():
+                    notas_aluno = [calcular_pontuacao(r) for r in respostas]
+                    media_aluno = sum(notas_aluno) / len(notas_aluno)
+                    
+                    # Simulando notas para cada pilar (você precisará ajustar isso com base em sua lógica real)
+                    notas_pilares = [media_aluno] * 5
+                    
+                    alunos_info.append({
+                        'nome': f"{aluno.nome} {aluno.sobrenome}",
+                        'notas_pilares': notas_pilares,
+                        'media_final': media_aluno
+                    })
+                    
+                    for i, pilar in enumerate(pilares):
+                        medias_pilares[pilar] += notas_pilares[i]
+        
+        # Calculando a média final para cada pilar
+        for pilar in pilares:
+            medias_pilares[pilar] = round(medias_pilares[pilar] / len(alunos_info) if alunos_info else 0, 2)
+        
+        context = {
+            'professor': professor,
+            'total_cursos': total_cursos,
+            'total_alunos': total_alunos,
+            'medias_pilares': medias_pilares,
+            'alunos_info': alunos_info
+        }
+        
+        return render(request, 'professor.html', context)
+    except Professor.DoesNotExist:
+        return redirect('setup:login/professor')
+
+def cadastrar_turma(request):
+    professor_id = request.session.get('professor_id')
+    if not professor_id:
+        return redirect('setup:login_professor')
+
+    professor = get_object_or_404(Professor, id=professor_id)
+
+    if request.method == "POST":
+        form = TurmaForm(request.POST, professor=professor)
+        if form.is_valid():
+            turma = form.save()
+            messages.success(request, f"Turma '{turma.nome}' cadastrada com sucesso!")
+            return redirect('setup:listar_turmas')
+    else:
+        form = TurmaForm(professor=professor)
+
+    return render(request, 'cadastrar_turma.html', {'form': form})
+
+def listar_turmas(request):
+    professor_id = request.session.get('professor_id')
+    if not professor_id:
+        return redirect('setup:login_professor')
+
+    professor = get_object_or_404(Professor, id=professor_id)
+    turmas = Turma.objects.filter(professor=professor)
+
+    return render(request, 'listar_turmas.html', {'turmas': turmas})

@@ -22,7 +22,8 @@ class Professor(models.Model):
 
 class Turma(models.Model):
     id_turma = models.AutoField(primary_key=True)
-    professor = models.ForeignKey(Professor, on_delete=models.CASCADE)
+    nome = models.CharField(max_length=100)
+    professor = models.ForeignKey(Professor, on_delete=models.CASCADE, related_name='turmas')
     alunos = models.ManyToManyField(Aluno)
 
     def __str__(self):

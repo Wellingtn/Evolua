@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listar Turmas</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/professor.css' %}" media="screen" />
+</head>
+<body>
+    <div class="sidebar">
+        <img src="{% static 'css/images/evolua-logo-branco(1).svg' %}" alt="Evolua Logo" />
+        <a href="{% url 'setup:professor' %}">Visão Geral</a>
+        <a href="{% url 'setup:listar_turmas' %}">Turmas</a>
+        <a href="{% url 'setup:login_professor' %}">Sair</a>
+    </div>
+
+    <div class="main-content">
+        <h1>Minhas Turmas</h1>
+        <a href="{% url 'setup:cadastrar_turma' %}" class="btn">Cadastrar Nova Turma</a>
+        
+        {% if turmas %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome da Turma</th>
+                        <th>Número de Alunos</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for turma in turmas %}
+                    <tr>
+                        <td>{{ turma.nome }}</td>
+                        <td>{{ turma.alunos.count }}</td>
+                        <td>
+                            <a href="#" class="btn btn-details">Detalhes</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Você ainda não tem turmas cadastradas.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

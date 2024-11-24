@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Turma</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/professor.css' %}" media="screen" />
+</head>
+<body>
+    <div class="sidebar">
+        <img src="{% static 'css/images/evolua-logo-branco(1).svg' %}" alt="Evolua Logo" />
+        <a href="{% url 'setup:professor' %}">Visão Geral</a>
+        <a href="{% url 'setup:listar_turmas' %}">Turmas</a>
+        <a href="{% url 'setup:login_professor' %}">Sair</a>
+    </div>
+
+    <div class="main-content">
+        <h1>Cadastrar Nova Turma</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.nome.id_for_label }}">Nome da Turma:</label>
+                {{ form.nome }}
+            </div>
+            <div class="form-group">
+                <label>Alunos:</label>
+                {{ form.alunos }}
+            </div>
+            <button type="submit" class="btn">Cadastrar Turma</button>
+        </form>
+    </div>
+</body>
+</html>

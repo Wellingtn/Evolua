@@ -1,5 +1,5 @@
 from django import forms
-from .models import Aluno, Resposta, Professor
+from .models import Aluno, Resposta, Professor, Turma
 
 
 class AlunoForm(forms.ModelForm):
@@ -34,3 +34,26 @@ class RespostaForm(forms.ModelForm):
             'resposta_11': forms.Textarea(attrs={'rows': 3}),
             'resposta_12': forms.Textarea(attrs={'rows': 3}),
         }
+
+class TurmaForm(forms.ModelForm):
+    alunos = forms.ModelMultipleChoiceField(
+        queryset=Aluno.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False
+    )
+
+    class Meta:
+        model = Turma
+        fields = ['nome', 'alunos']
+
+    def __init__(self, *args, **kwargs):
+            self.professor = kwargs.pop('professor', None)
+            super(TurmaForm, self).__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        turma = super(TurmaForm, self).save(commit=False)
+        turma.professor = self.professor
+        if commit:
+            turma.save()
+            self.save_m2m()
+        return turma

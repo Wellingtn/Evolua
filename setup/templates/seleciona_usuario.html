@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700;900&display=swap" rel="stylesheet">
+    <!--{% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/seleciona_usuario.css' %}" media="screen" />>-->
+    <title>Selecione o Tipo de Usuário - Evolua</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Selecione o Tipo de Usuário</h2>
+        <div class="button-container">
+            <a href="{% url 'setup:login' %}" class="button">Aluno</a>
+            <a href="{% url 'setup:login_professor' %}" class="button">Professor</a>
+        </div>
+    </div>
+</body>
+</html>
+

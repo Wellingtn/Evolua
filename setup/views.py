@@ -185,6 +185,7 @@ def professor(request):
                     notas_pilares = [media_aluno] * 5
                     
                     alunos_info.append({
+                        'id': aluno.id,  # Add this line
                         'nome': f"{aluno.nome} {aluno.sobrenome}",
                         'notas_pilares': notas_pilares,
                         'media_final': media_aluno
@@ -207,7 +208,7 @@ def professor(request):
         
         return render(request, 'professor.html', context)
     except Professor.DoesNotExist:
-        return redirect('setup:login/professor')
+        return redirect('setup:login_professor')
 
 def cadastrar_turma(request):
     professor_id = request.session.get('professor_id')
@@ -236,3 +237,18 @@ def listar_turmas(request):
     turmas = Turma.objects.filter(professor=professor)
 
     return render(request, 'listar_turmas.html', {'turmas': turmas})
+
+def detalhes_aluno(request, aluno_id):
+    professor_id = request.session.get('professor_id')
+    if not professor_id:
+        return redirect('setup:login_professor')
+
+    aluno = get_object_or_404(Aluno, id=aluno_id)
+    resposta = Resposta.objects.filter(aluno=aluno).order_by('-id').first()
+    
+    context = {
+        'aluno': aluno,
+        'resposta': resposta,
+    }
+    return render(request, 'detalhes_aluno.html', context)
+

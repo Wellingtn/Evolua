@@ -1,18 +1,24 @@
 # Evolua
 
 ## Oque falta:
-    - Mensagem de erro quando o usuario tenta fazer login sem ter uma conta (Login)
+    
     - Ajustes na tela de cadastro (Cadastro)
     - Pilares Foil (Dashboard)
     - Rota semestres (Dashboard)
-    - Tabela no banco de dados para as respostas do questionario (Questionario)
-    - Calculo de notas do Dashboard (Dashboard)
+    - Fazer os alunos ficarem na turma(Banco de dados)
+    - Fazer aparecer as turmas de certo professor(Dashboard Proofessor)
+    
+    
 
 ## Oque foi feito:
     - Login e cadastro funcional (Login e Cadastro)
     - Tela de Dashboard com os dados do usuario (Dashboard)
     - Templates: Cadastro, Login, Dashboard, Questionario, Professor 
     - Connexão com o banco de dados (Banco de dados)
+    - Mensagem de erro quando o usuario tenta fazer login sem ter uma conta (Login)
+        - Não mostra erro, mas não quebra o código
+    - Calculo de notas do Dashboard (Dashboard)
+    - Tabela no banco de dados para as respostas do questionario (Questionario)
 
 
 ## Como rodar o projeto:

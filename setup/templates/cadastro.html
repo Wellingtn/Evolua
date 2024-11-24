@@ -1,61 +1,108 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700;900&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700;900&display=swap"
+      rel="stylesheet"
+    />
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/cadastro.css' %}" media="screen" />
+    <link rel="stylesheet" href="{% static 'css/cadastro.css' %}" />
     <title>Cadastro - Evolua</title>
-</head>
-<body>
+  </head>
+  <body>
+    <!-- Alerta -->
+    <div id="alert-box" class="alert-box">
+      <span id="alert-message"></span>
+    </div>
+
+    <!-- Formulário -->
     <div class="left-side">
+      <h2>Cadastro</h2>
+      <p>Informe seus dados para continuar.</p>
+       <!-- Formulário -->
+    <!-- <div class="left-side">
         <h2>Cadastro</h2>
         <p>Informe seus dados para continuar.</p>
-        <div class="form_button">
-            <form method="post" action="{% url 'setup:cadastro' %}">
-                {% csrf_token %}
-                <div class="inputs-curtos">
-                    <input type="text" id="nome" name="nome" placeholder="Nome" required>
-                    <input type="text" id="sobrenome" name="sobrenome" placeholder="Sobrenome" required>
-                    <input type="text" id="ra" name="ra" placeholder="RA" required>
-
-                    <select id="semestre" name="semestre" required>
-                        <option value="" disabled selected>Selecione o semestre</option>
-                        <option value="1">1° semestre</option>
-                        <option value="2">2° semestre</option>
-                        <option value="3">3° semestre</option>
-                        <option value="4">4° semestre</option>
-                        <option value="5">5° semestre</option>
-                        <option value="6">6° semestre</option>
-                        <option value="7">7° semestre</option>
-                        <option value="8">8° semestre</option>
-                    </select>
-
-                    <input type="text" id="curso" name="curso" placeholder="Curso" required>
-
-                    <select id="professor" name="professor" required>
-                        <option value="" disabled selected>Selecione o professor</option>
-                        <option value="Gustavo Florêncio">Gustavo Florêncio</option>
-                        <option value="Patrícia Wazlawick">Patrícia Wazlawick</option>
-                        <option value="Gustavo Bernadini">Gustavo Bernadini</option>
-                        <option value="Jocássio Guidetti">Jocássio Guidetti</option>
-                    </select>
-                </div>
-                <div class="inputs-largos">
-                    <input type="email" id="email" name="email" placeholder="E-mail" required>
-                    <input type="password" id="senha" name="senha" placeholder="Senha" required>
-                    <button type="submit">Cadastrar</button>
-                </div>
-            </form>
+        <form method="post" action="{% url 'setup:cadastro' %}">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit" class="btn-submit">Cadastrar</button>
+      </form> -->
+      <form method="post" action="{% url 'setup:cadastro' %}">
+        {% csrf_token %}
+        <div class="inputs-curtos">
+          <input
+            type="text"
+            id="nome"
+            name="nome"
+            class="input-field"
+            placeholder="Nome"
+            required
+          />
+          <input
+            type="text"
+            id="sobrenome"
+            name="sobrenome"
+            class="input-field"
+            placeholder="Sobrenome"
+            required
+          />
         </div>
-        <p>Já tem conta? <a href="{% url 'setup:login' %}" style="color: var(--white-primary); font-weight: 800;">Login</a></p>
+        <div class="inputs-curtos">
+          <input type="text" id="ra" name="ra" class="input-field" placeholder="RA" maxlength="6" required oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
+          <select id="semestre" name="semestre" class="select-field" required>
+            <option value="" disabled selected>Selecione o semestre</option>
+            <option value="1">1° semestre</option>
+            <option value="2">2° semestre</option>
+            <option value="3">3° semestre</option>
+            <option value="4">4° semestre</option>
+            <option value="5">5° semestre</option>
+            <option value="6">6° semestre</option>
+            <option value="7">7° semestre</option>
+            <option value="8">8° semestre</option>
+          </select>
+        </div>
+        <div class="inputs-curtos">
+          <select id="curso" name="curso" class="select-field" required>
+            <option value="" disabled selected>Selecione o curso</option>
+            <option value="Sistemas de Informação">Sistemas de Informação</option>
+            <option value="Direito">Direito</option>
+            <option value="Ontopsicologia">Ontopsicologia</option>
+            <option value="Administração">Administração</option>
+            <option value="Ciências Contábeis">Ciências Contábeis</option>
+            <option value="Hotelaria">Hotelaria</option>
+            <option value="Gastronomia">Gastronomia</option>
+            <option value="Pedagogia">Pedagogia</option>
+          </select>
+          <select id="professor" name="professor" class="select-field" required >
+            <option value="" disabled selected>Selecione o professor</option>
+            <option value="Gustavo Florêncio">Gustavo Florêncio</option>
+            <option value="Patrícia Wazlawick">Patrícia Wazlawick</option>
+            <option value="Gustavo Bernadini">Gustavo Bernadini</option>
+            <option value="Jocássio Guidetti">Jocássio Guidetti</option>
+          </select>
+        </div>
+        <div class="inputs-largos">
+          <input type="email" id="email" name="email" class="input-field" placeholder="E-mail" required />
+          <input type="password" id="senha" name="senha" class="input-field" placeholder="Senha" required />
+        </div>
+        <button type="submit" class="btn-submit">Cadastrar</button>
+      </form>
+      <p> Já tem conta? <a href="{% url 'setup:login' %}" class="link-login">Login</a> </p>
     </div>
 
+    <!-- Imagem lateral -->
     <div class="right-side">
-        <img src="{% static '../static/css/images/imagem-cadastro-right(1).jpg' %}" alt="Imagem de cadastro lado direito da tela">
+      <img
+        src="{% static 'css/images/imagem-cadastro-right(1).jpg' %}"
+        alt="Imagem de cadastro lado direito da tela"
+      />
     </div>
-</body>
+
+    <script src="{% static 'js/cadastro.js' %}"></script>
+  </body>
 </html>

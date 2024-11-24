@@ -81,9 +81,9 @@ def dashboard(request):
         # Progresso
         progresso = (quizzes_respondidos / total_quizzes) * 100 if total_quizzes > 0 else 0
         
-        # Histórico de quizzes (últimos 5)
+        # Atualizar o histórico de quizzes para incluir o ID da resposta
         historico_quizzes = [
-            {'pilar': f'Quiz {i+1}', 'nota': calcular_pontuacao(r)}
+            {'id': r.id, 'pilar': f'Quiz {i+1}', 'nota': calcular_pontuacao(r)}
             for i, r in enumerate(respostas.order_by('-id')[:5])
         ]
         
@@ -178,6 +178,7 @@ def professor(request):
             for aluno in turma.alunos.all():
                 respostas = Resposta.objects.filter(aluno=aluno)
                 if respostas.exists():
+                    ultima_resposta = respostas.latest('id')
                     notas_aluno = [calcular_pontuacao(r) for r in respostas]
                     media_aluno = sum(notas_aluno) / len(notas_aluno)
                     
@@ -185,15 +186,16 @@ def professor(request):
                     notas_pilares = [media_aluno] * 5
                     
                     alunos_info.append({
-                        'id': aluno.id,  # Add this line
+                        'id': aluno.id,
                         'nome': f"{aluno.nome} {aluno.sobrenome}",
                         'notas_pilares': notas_pilares,
-                        'media_final': media_aluno
+                        'media_final': media_aluno,
+                        'ultima_resposta_id': ultima_resposta.id
                     })
-                    
+                        
                     for i, pilar in enumerate(pilares):
                         medias_pilares[pilar] += notas_pilares[i]
-        
+            
         # Calculando a média final para cada pilar
         for pilar in pilares:
             medias_pilares[pilar] = round(medias_pilares[pilar] / len(alunos_info) if alunos_info else 0, 2)
@@ -238,17 +240,32 @@ def listar_turmas(request):
 
     return render(request, 'listar_turmas.html', {'turmas': turmas})
 
-def detalhes_aluno(request, aluno_id):
+def detalhes_quiz_professor(request, aluno_id, resposta_id):
     professor_id = request.session.get('professor_id')
     if not professor_id:
         return redirect('setup:login_professor')
 
+    professor = get_object_or_404(Professor, id=professor_id)
     aluno = get_object_or_404(Aluno, id=aluno_id)
-    resposta = Resposta.objects.filter(aluno=aluno).order_by('-id').first()
-    
+    resposta = get_object_or_404(Resposta, id=resposta_id, aluno=aluno)
+
+    context = {
+        'professor': professor,
+        'aluno': aluno,
+        'resposta': resposta,
+    }
+    return render(request, 'detalhes_quiz_professor.html', context)
+
+def detalhes_quiz_aluno(request, resposta_id):
+    aluno_id = request.session.get('aluno_id')
+    if not aluno_id:
+        return redirect('setup:login')
+
+    aluno = get_object_or_404(Aluno, id=aluno_id)
+    resposta = get_object_or_404(Resposta, id=resposta_id, aluno=aluno)
+
     context = {
         'aluno': aluno,
         'resposta': resposta,
     }
-    return render(request, 'detalhes_aluno.html', context)
-
+    return render(request, 'detalhes_quiz_aluno.html', context)

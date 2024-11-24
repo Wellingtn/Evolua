@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/quiz.css' %}" media="screen" />
+    <title>Detalhes do Quiz do Aluno - EVOLUA</title>
+</head>
+
+<body>
+    <header class="navbar">
+        <img src="{% static 'css/images/evolua-logo-branco(1).svg' %}" alt="Evolua Logo">
+        <div class="links">
+            <a href="{% url 'setup:professor' %}" class="button-link">Visão Geral</a>
+            <a href="{% url 'setup:listar_turmas' %}" class="button-link">Turmas</a>
+            <a href="{% url 'setup:login_professor' %}" class="button-link">Sair</a>
+        </div>
+    </header>
+    <section class="container-topo">
+        <div class="titulo">
+            <h1>Detalhes do Quiz - {{ aluno.nome }} {{ aluno.sobrenome }}</h1>
+        </div>
+        <p>RA: {{ aluno.ra }} | Curso: {{ aluno.curso }} | Semestre: {{ aluno.semestre }}</p>
+    </section>
+    <form method="post">
+        {% csrf_token %}
+        <div class="container-perguntas">
+            <h2>Pilar 1: Trabalho</h2>
+            <div class="question">
+                <p>1. Você está atualmente empregado?</p>
+                <div class="options">
+                    <input type="radio" id="resposta_1_sim" name="resposta_1" value="True" {% if resposta.resposta_1 %}checked{% endif %} disabled>
+                    <label for="resposta_1_sim">Sim</label>
+                    <input type="radio" id="resposta_1_nao" name="resposta_1" value="False" {% if not resposta.resposta_1 %}checked{% endif %} disabled>
+                    <label for="resposta_1_nao">Não</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>2. Você está satisfeito(a) no seu trabalho atual?</p>
+                <div class="options">
+                    <input type="radio" id="resposta_2_sim" name="resposta_2" value="True" {% if resposta.resposta_2 %}checked{% endif %} disabled>
+                    <label for="resposta_2_sim">Sim</label>
+                    <input type="radio" id="resposta_2_nao" name="resposta_2" value="False" {% if not resposta.resposta_2 %}checked{% endif %} disabled>
+                    <label for="resposta_2_nao">Não</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-perguntas">
+            <h2>Pilar 2: Estudo</h2>
+            <div class="question">
+                <p>3. Você se considera uma pessoa com conhecimento em tecnologia?</p>
+                <div class="options">
+                    <input type="radio" id="resposta_3_sim" name="resposta_3" value="True" {% if resposta.resposta_3 %}checked{% endif %} disabled>
+                    <label for="resposta_3_sim">Sim</label>
+                    <input type="radio" id="resposta_3_nao" name="resposta_3" value="False" {% if not resposta.resposta_3 %}checked{% endif %} disabled>
+                    <label for="resposta_3_nao">Não</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>4. Quais habilidades técnicas você tem que podem auxiliar na sua carreira?</p>
+                <textarea name="resposta_4" rows="3" readonly>{{ resposta.resposta_4 }}</textarea>
+            </div>
+        </div>
+
+        <div class="container-perguntas">
+            <h2>Pilar 3: Alta Moralidade</h2>
+            <div class="question">
+                <p>5. Você tem facilidade de se comunicar com as pessoas?</p>
+                <div class="options">
+                    <input type="radio" id="resposta_5_sim" name="resposta_5" value="True" {% if resposta.resposta_5 %}checked{% endif %} disabled>
+                    <label for="resposta_5_sim">Sim</label>
+                    <input type="radio" id="resposta_5_nao" name="resposta_5" value="False" {% if not resposta.resposta_5 %}checked{% endif %} disabled>
+                    <label for="resposta_5_nao">Não</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>6. Você se considera uma pessoa organizada com suas atividades diárias?</p>
+                <div class="options">
+                    <input type="radio" id="resposta_6_sim" name="resposta_6" value="True" {% if resposta.resposta_6 %}checked{% endif %} disabled>
+                    <label for="resposta_6_sim">Sim</label>
+                    <input type="radio" id="resposta_6_nao" name="resposta_6" value="False" {% if not resposta.resposta_6 %}checked{% endif %} disabled>
+                    <label for="resposta_6_nao">Não</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-perguntas">
+            <h2>Pilar 4: Internacionalidade</h2>
+            <div class="question">
+                <p>7. Você sabe falar um idioma estrangeiro?</p>
+                <div class="options">
+                    <input type="radio" id="resposta_7_sim" name="resposta_7" value="True" {% if resposta.resposta_7 %}checked{% endif %} disabled>
+                    <label for="resposta_7_sim">Sim</label>
+                    <input type="radio" id="resposta_7_nao" name="resposta_7" value="False" {% if not resposta.resposta_7 %}checked{% endif %} disabled>
+                    <label for="resposta_7_nao">Não</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>8. Você tem interesse em aprender sobre culturas diferentes?</p>
+                <div class="options">
+                    <input type="radio" id="resposta_8_sim" name="resposta_8" value="True" {% if resposta.resposta_8 %}checked{% endif %} disabled>
+                    <label for="resposta_8_sim">Sim</label>
+                    <input type="radio" id="resposta_8_nao" name="resposta_8" value="False" {% if not resposta.resposta_8 %}checked{% endif %} disabled>
+                    <label for="resposta_8_nao">Não</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-perguntas">
+            <h2>Pilar 5: Foil</h2>
+            <div class="question">
+                <p>9. Você sabe qual é a sua vocação (a coisa que você sente que nasceu para fazer)?</p>
+                <textarea name="resposta_9" rows="3" readonly>{{ resposta.resposta_9 }}</textarea>
+            </div>
+            <div class="question">
+                <p>10. Você pratica alguma atividade artística ou física? (ex: pintura, escultura, tocar um instrumento, praticar esportes, dançar, etc)</p>
+                <div class="options">
+                    <input type="radio" id="resposta_10_sim" name="resposta_10" value="True" {% if resposta.resposta_10 %}checked{% endif %} disabled>
+                    <label for="resposta_10_sim">Sim</label>
+                    <input type="radio" id="resposta_10_nao" name="resposta_10" value="False" {% if not resposta.resposta_10 %}checked{% endif %} disabled>
+                    <label for="resposta_10_nao">Não</label>
+                </div>
+            </div>
+            <div class="question">
+                <p>11. Quais são suas soft skills mais valorizadas (ex: trabalho em equipe, resolução de conflitos, etc)?</p>
+                <textarea name="resposta_11" rows="3" readonly>{{ resposta.resposta_11 }}</textarea>
+            </div>
+            <div class="question">
+                <p>12. Onde você quer estar daqui a 1 ano, 5 e 10 anos? (Inclua suas metas de carreira e desenvolvimento pessoal)</p>
+                <textarea name="resposta_12" rows="3" readonly>{{ resposta.resposta_12 }}</textarea>
+            </div>
+        </div>
+
+        <div class="container-perguntas">
+            <a href="{% url 'setup:professor' %}" class="button-link">Voltar para Visão Geral</a>
+        </div>
+    </form>
+
+    <div class="footer">
+        <p>&copy; 2024 Avaliação de Competências</p>
+    </div>
+</body>
+</html>
+

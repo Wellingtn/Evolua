@@ -11,8 +11,7 @@
     <!-- Barra Lateral -->
     <div class="sidebar">
       <img
-        src="{% static '../static/css/images/evolua-logo-branco(1).svg' %}"
-        href="{% url 'setup:dashboard' %}"
+        src="{% static 'css/images/evolua-logo-branco(1).svg' %}"
         alt="Evolua Logo"
       />
       <a href="{% url 'setup:dashboard' %}">Visão Geral</a>
@@ -63,7 +62,9 @@
           <h3>Histórico de Quizzes</h3>
           {% for quiz in historico_quizzes %}
           <div class="quiz-item">
-            <span>{{ quiz.pilar }}</span><span>Nota: {{ quiz.nota|floatformat:2 }}</span>
+            <span>{{ quiz.pilar }}</span>
+            <span>Nota: {{ quiz.nota|floatformat:2 }}</span>
+            <a href="{% url 'setup:detalhes_quiz_aluno' resposta_id=quiz.id %}" class="btn btn-details">Detalhes</a>
           </div>
           {% empty %}
           <p>Nenhum quiz respondido ainda.</p>

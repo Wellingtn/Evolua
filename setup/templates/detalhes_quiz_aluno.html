@@ -5,25 +5,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https
+://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'css/quiz.css' %}" media="screen" />
-    <title>Detalhes do Aluno - EVOLUA</title>
+    <title>Detalhes do Quiz - EVOLUA</title>
 </head>
 
 <body>
     <header class="navbar">
         <img src="{% static 'css/images/evolua-logo-branco(1).svg' %}" alt="Evolua Logo">
         <div class="links">
-            <a href="{% url 'setup:professor' %}" class="button-link">Visão Geral</a>
-            <a href="{% url 'setup:listar_turmas' %}" class="button-link">Turmas</a>
+            <a href="{% url 'setup:dashboard' %}" class="button-link">Visão Geral</a>
+            <a href="#semestre" class="button-link">Semestres</a>
+            <a href="{% url 'setup:quiz' %}" class="button-link">Trilha de Aprendizagem</a>
+            <a href="{% url 'setup:login' %}" class="button-link">Sair</a>
         </div>
     </header>
     <section class="container-topo">
         <div class="titulo">
-            <h1>Detalhes do Aluno - {{ aluno.nome }} {{ aluno.sobrenome }}</h1>
+            <h1>Detalhes do Quiz</h1>
         </div>
-        <p>RA: {{ aluno.ra }} | Curso: {{ aluno.curso }} | Semestre: {{ aluno.semestre }}</p>
+        <p>Suas respostas para o questionário</p>
     </section>
     <form method="post">
         {% csrf_token %}
@@ -136,7 +139,7 @@
         </div>
 
         <div class="container-perguntas">
-            <a href="{% url 'setup:professor' %}" class="button-link">Voltar para Visão Geral</a>
+            <a href="{% url 'setup:dashboard' %}" class="button-link">Voltar para o Dashboard</a>
         </div>
     </form>
 
@@ -145,5 +148,4 @@
     </div>
 </body>
 </html>
-
 

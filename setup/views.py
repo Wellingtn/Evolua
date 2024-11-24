@@ -73,10 +73,11 @@ def dashboard(request):
         
         # Pilares FOIL (exemplo)
         pilares = [
-            ('F', 'Foco'),
-            ('O', 'Organização'),
-            ('I', 'Inovação'),
-            ('L', 'Liderança')
+            ('TRABALHO', 'Refere-se à importância de aplicar esforço prático para realizar objetivos. Através do trabalho, você aprende a se comprometer, assumir responsabilidades e desenvolver habilidades essenciais para crescer tanto pessoal quanto profissionalmente.'),
+            ('ESTUDO', 'Representa o desenvolvimento contínuo do conhecimento e da inteligência. O estudo amplia suas capacidades técnicas e humanísticas, ajudando na resolução de problemas e na inovação, fundamentais para sua atuação no mercado e na sociedade.'),
+            ('ALTA MORALIDADE', 'Envolve agir com ética, integridade e respeito pelos outros. A alta moralidade significa tomar decisões que não apenas beneficiam você, mas também o coletivo, sempre respeitando princípios elevados em todas as suas ações.'),
+            ('INTERNACIONALIDADE', 'Envolve a abertura para novas culturas e formas de pensamento. A internacionalidade te prepara para atuar em um mundo globalizado, promovendo o intercâmbio de ideias e experiências que ampliam suas perspectivas e oportunidades.'),
+            ('FOIL', 'Refere-se ao desenvolvimento da capacidade de compreensão e aplicação de conhecimentos interdisciplinares. Este pilar liga o indivíduo às suas experiências e ao mundo, permitindo uma formação integral que favorece a inovação e a solução criativa de problemas.')
         ]
         
         context = {

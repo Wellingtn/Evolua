@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.db.models import Avg
 from .forms import AlunoForm, ProfessorForm, RespostaForm
 from .models import Aluno, Professor, Turma, Resposta
+from django.contrib.auth.hashers import make_password
 
 def cadastro(request):
     if request.method == "POST":
@@ -112,18 +113,32 @@ def quiz(request):
     
     return render(request, 'quiz.html', {'form': form})
 
+
 def cadastro_professor(request):
     if request.method == "POST":
-        form = ProfessorForm(request.POST)
-        if form.is_valid():
-            professor = form.save(commit=False)
-            professor.senha = form.cleaned_data['senha']  # Lembre-se de implementar o hashing da senha
+        nome = request.POST.get('nome')
+        email = request.POST.get('email')
+        senha = request.POST.get('senha')
+
+        if Professor.objects.filter(email=email).exists():
+            messages.error(request, "Este e-mail já está cadastrado.")
+        else:
+            professor = Professor(
+                nome=nome,
+                email=email,
+                senha=make_password(senha)
+            )
             professor.save()
-            return redirect('setup:login')
-    else:
-        form = ProfessorForm()
-    return render(request, 'cadastro_professor.html', {'form': form})
+            messages.success(request, "Professor cadastrado com sucesso!")
+            return redirect('setup:login')  # Redireciona para a página de login após o cadastro
+
+    return render(request, 'cadastro_professor.html')
+
+# ... (manter as outras funções existentes)
+
+
 
 def professor(request):
     # Implemente a lógica para a página do professor
     return render(request, 'professor.html')
+    

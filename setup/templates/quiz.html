@@ -1,154 +1,150 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../../../static/css/quiz.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/quiz.css' %}" media="screen" />
     <title>FORMULÁRIO - EVOLUA</title>
 </head>
 
 <body>
     <header class="navbar">
-        <img src="../../../static/css/images/evolua-logo-branco(1).svg" alt="Evolua Logo">
+        <img src="{% static 'css/images/evolua-logo-branco(1).svg' %}" alt="Evolua Logo">
         <div class="links">
-            <a href="/dashboard/" class="button-link">Visão Geral</a>
+            <a href="{% url 'setup:dashboard' %}" class="button-link">Visão Geral</a>
             <a href="#semestre" class="button-link">Semestres</a>
-            <a href="/quiz/" class="button-link">Trilha de Aprendizagem</a> 
-            <a href="/login/" class="button-link">Sair</a>
+            <a href="{% url 'setup:quiz' %}" class="button-link">Trilha de Aprendizagem</a> 
+            <a href="{% url 'setup:login' %}" class="button-link">Sair</a>
         </div>
     </header>
-        <section class="container-topo">
-            <div class="titulo">
-                <h1>Quiz - Avaliação</h1>
-            </div>
-                <p>Este questionário busca entender as competências para determinar se você possui as características e habilidades ideais.</p>
-        </section>
-            <div class="container-perguntas">
-                <h2>Pilar 1: Trabalho</h2>
-                <div class="question">
-                    <p>1. Você está atualmente empregado?</p>
-                    <div class="options">
-                        <input type="radio" id="empregado-sim" name="empregado" value="Sim">
-                        <label for="empregado-sim">Sim</label>
-    
-                        <input type="radio" id="empregado-nao" name="empregado" value="Não">
-                        <label for="empregado-nao">Não</label>
-                    </div>
-                </div>
-                <div class="question">
-                    <p>2. Você está satisfeito(a) no seu trabalho atual?</p>
-                    <div class="options">
-                        <input type="radio" id="satisfeito-sim" name="satisfeito" value="Sim">
-                        <label for="satisfeito-sim">Sim</label>
-    
-                        <input type="radio" id="satisfeito-nao" name="satisfeito" value="Não">
-                        <label for="satisfeito-nao">Não</label>
-                    </div>
+    <section class="container-topo">
+        <div class="titulo">
+            <h1>Quiz - Avaliação</h1>
+        </div>
+        <p>Este questionário busca entender as competências para determinar se você possui as características e habilidades ideais.</p>
+    </section>
+    <form method="post">
+        {% csrf_token %}
+        <div class="container-perguntas">
+            <h2>Pilar 1: Trabalho</h2>
+            <div class="question">
+                <p>1. Você está atualmente empregado?</p>
+                <div class="options">
+                    {% for value, text in form.resposta_1.field.widget.choices %}
+                        <input type="radio" id="resposta_1_{{ value }}" name="{{ form.resposta_1.name }}" value="{{ value }}">
+                        <label for="resposta_1_{{ value }}">{{ text }}</label>
+                    {% endfor %}
                 </div>
             </div>
-
-
-
-            <div class="container-perguntas">
-                <h2>Pilar 2: Estudo</h2>
-                <div class="question">
-                    <p>3. Você se considera uma pessoa com conhecimento em tecnologia?</p>
-                    <div class="options">
-                        <input type="radio" id="tecnologia-sim" name="tecnologia" value="Sim">
-                        <label for="tecnologia-sim">Sim</label>
-
-                        <input type="radio" id="tecnologia-nao" name="tecnologia" value="Não">
-                        <label for="tecnologia-nao">Não</label>
-                    </div>
-                </div>
-                <div class="question">
-                    <p>4. Quais habilidades técnicas você tem que podem auxiliar na sua carreira?</p>
-                    <textarea name="habilidades" rows="3" placeholder="Descreva suas habilidades"></textarea>
+            <div class="question">
+                <p>2. Você está satisfeito(a) no seu trabalho atual?</p>
+                <div class="options">
+                    {% for value, text in form.resposta_2.field.widget.choices %}
+                        <input type="radio" id="resposta_2_{{ value }}" name="{{ form.resposta_2.name }}" value="{{ value }}">
+                        <label for="resposta_2_{{ value }}">{{ text }}</label>
+                    {% endfor %}
                 </div>
             </div>
-
-            <div class="container-perguntas">
-                <h2>Pilar 3: Alta Moralidade</h2>
-                <div class="question">
-                    <p>5. Você tem facilidade de se comunicar com as pessoas?</p>
-                    <div class="options">
-                        <input type="radio" id="empregado-sim" name="empregado" value="Sim">
-                        <label for="empregado-sim">Sim</label>
-    
-                        <input type="radio" id="empregado-nao" name="empregado" value="Não">
-                        <label for="empregado-nao">Não</label>
-                    </div>
-                </div>
-                <div class="question">
-                    <p>6. Você se considera uma pessoas organizada com suas atividades diárias?</p>
-                    <div class="options">
-                        <input type="radio" id="satisfeito-sim" name="satisfeito" value="Sim">
-                        <label for="satisfeito-sim">Sim</label>
-    
-                        <input type="radio" id="satisfeito-nao" name="satisfeito" value="Não">
-                        <label for="satisfeito-nao">Não</label>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="container-perguntas">
-                <h2>Pilar 4: Internacionalidade</h2>
-                <div class="question">
-                    <p>7. Você sabe falar um idioma estrangeiro?</p>
-                    <div class="options">
-                        <input type="radio" id="empregado-sim" name="empregado" value="Sim">
-                        <label for="empregado-sim">Sim</label>
-    
-                        <input type="radio" id="empregado-nao" name="empregado" value="Não">
-                        <label for="empregado-nao">Não</label>
-                    </div>
-                </div>
-                <div class="question">
-                    <p>8. Você tem interesse em aprender sobre culturas diferentes?</p>
-                    <div class="options">
-                        <input type="radio" id="satisfeito-sim" name="satisfeito" value="Sim">
-                        <label for="satisfeito-sim">Sim</label>
-    
-                        <input type="radio" id="satisfeito-nao" name="satisfeito" value="Não">
-                        <label for="satisfeito-nao">Não</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="container-perguntas">
-                <h2>Pilar 5: Foil</h2>
-                <div class="question">
-                    <div class="question">
-                        <p>9. Você sabe qual é a sua vocação (a coisa que você sente que nasceu para fazer)?</p>
-                        <textarea name="habilidades" rows="3" placeholder="Descreva suas habilidades"></textarea>
-                    </div>
-                    <p>10. Você pratica alguma atividade artística ou física?(ex: pintura, escultura, tocar um instrumento, praticar esportes, dançar, etc)</p>
-                    <div class="options">
-                        <input type="radio" id="tecnologia-sim" name="tecnologia" value="Sim">
-                        <label for="tecnologia-sim">Sim</label>
-
-                        <input type="radio" id="tecnologia-nao" name="tecnologia" value="Não">
-                        <label for="tecnologia-nao">Não</label>
-                    </div>
-                    <div class="question">
-                        <p>11. Quais são suas soft skills mais valorizadas (ex: trabalho em equipe, resolução de conflitos, etc)?</p>
-                        <textarea name="habilidades" rows="3" placeholder="Descreva suas habilidades"></textarea>
-                    </div>
-                    <div class="question">
-                        <p>12. Onde você quer estar daqui a 1 ano, 5 e 10 anos? (Inclua suas metas de carreira e desenvolvimento pessoal)</p>
-                        <textarea name="habilidades" rows="3" placeholder="Descreva suas habilidades"></textarea>
-                    </div>
-                </div>
-            </div>
-
-
-        <div class="footer">
-            <p>&copy; 2024 Avaliação de Competências</p>
         </div>
 
+        <div class="container-perguntas">
+            <h2>Pilar 2: Estudo</h2>
+            <div class="question">
+                <p>3. Você se considera uma pessoa com conhecimento em tecnologia?</p>
+                <div class="options">
+                    {% for value, text in form.resposta_3.field.widget.choices %}
+                        <input type="radio" id="resposta_3_{{ value }}" name="{{ form.resposta_3.name }}" value="{{ value }}">
+                        <label for="resposta_3_{{ value }}">{{ text }}</label>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="question">
+                <p>4. Quais habilidades técnicas você tem que podem auxiliar na sua carreira?</p>
+                {{ form.resposta_4 }}
+            </div>
+        </div>
+
+        <div class="container-perguntas">
+            <h2>Pilar 3: Alta Moralidade</h2>
+            <div class="question">
+                <p>5. Você tem facilidade de se comunicar com as pessoas?</p>
+                <div class="options">
+                    {% for value, text in form.resposta_5.field.widget.choices %}
+                        <input type="radio" id="resposta_5_{{ value }}" name="{{ form.resposta_5.name }}" value="{{ value }}">
+                        <label for="resposta_5_{{ value }}">{{ text }}</label>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="question">
+                <p>6. Você se considera uma pessoa organizada com suas atividades diárias?</p>
+                <div class="options">
+                    {% for value, text in form.resposta_6.field.widget.choices %}
+                        <input type="radio" id="resposta_6_{{ value }}" name="{{ form.resposta_6.name }}" value="{{ value }}">
+                        <label for="resposta_6_{{ value }}">{{ text }}</label>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="container-perguntas">
+            <h2>Pilar 4: Internacionalidade</h2>
+            <div class="question">
+                <p>7. Você sabe falar um idioma estrangeiro?</p>
+                <div class="options">
+                    {% for value, text in form.resposta_7.field.widget.choices %}
+                        <input type="radio" id="resposta_7_{{ value }}" name="{{ form.resposta_7.name }}" value="{{ value }}">
+                        <label for="resposta_7_{{ value }}">{{ text }}</label>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="question">
+                <p>8. Você tem interesse em aprender sobre culturas diferentes?</p>
+                <div class="options">
+                    {% for value, text in form.resposta_8.field.widget.choices %}
+                        <input type="radio" id="resposta_8_{{ value }}" name="{{ form.resposta_8.name }}" value="{{ value }}">
+                        <label for="resposta_8_{{ value }}">{{ text }}</label>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="container-perguntas">
+            <h2>Pilar 5: Foil</h2>
+            <div class="question">
+                <p>9. Você sabe qual é a sua vocação (a coisa que você sente que nasceu para fazer)?</p>
+                {{ form.resposta_9 }}
+            </div>
+            <div class="question">
+                <p>10. Você pratica alguma atividade artística ou física? (ex: pintura, escultura, tocar um instrumento, praticar esportes, dançar, etc)</p>
+                <div class="options">
+                    {% for value, text in form.resposta_10.field.widget.choices %}
+                        <input type="radio" id="resposta_10_{{ value }}" name="{{ form.resposta_10.name }}" value="{{ value }}">
+                        <label for="resposta_10_{{ value }}">{{ text }}</label>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="question">
+                <p>11. Quais são suas soft skills mais valorizadas (ex: trabalho em equipe, resolução de conflitos, etc)?</p>
+                {{ form.resposta_11 }}
+            </div>
+            <div class="question">
+                <p>12. Onde você quer estar daqui a 1 ano, 5 e 10 anos? (Inclua suas metas de carreira e desenvolvimento pessoal)</p>
+                {{ form.resposta_12 }}
+            </div>
+        </div>
+
+        <div class="container-perguntas">
+            <button type="submit" class="button-link">Enviar Respostas</button>
+        </div>
+    </form>
+
+    <div class="footer">
+        <p>&copy; 2024 Avaliação de Competências</p>
+    </div>
 </body>
 </html>
+

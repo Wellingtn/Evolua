@@ -3,8 +3,6 @@
 ## Oque falta:
     
     - Ajustes na tela de cadastro (Cadastro)
-    - Pilares Foil (Dashboard)
-    - Rota semestres (Dashboard)
     - Fazer os alunos ficarem na turma(Banco de dados)
     - Fazer aparecer as turmas de certo professor(Dashboard Proofessor)
     
@@ -19,6 +17,7 @@
         - Não mostra erro, mas não quebra o código
     - Calculo de notas do Dashboard (Dashboard)
     - Tabela no banco de dados para as respostas do questionario (Questionario)
+    - Pilares Foil (Dashboard)
 
 
 ## Como rodar o projeto:

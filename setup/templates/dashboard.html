@@ -35,7 +35,7 @@
       <div class="card-container">
         <div class="card">
           <h3>Progresso</h3>
-          <p>{{ progresso }}%</p>
+          <p>{{ progresso|floatformat:2 }}%</p>
         </div>
         <div class="card">
           <h3>Quizzes Respondidos</h3>
@@ -47,7 +47,7 @@
         </div>
         <div class="card">
           <h3>Nota Média</h3>
-          <p>{{ nota_media }}</p>
+          <p>{{ nota_media|floatformat:2 }}</p>
         </div>
       </div>
 
@@ -63,8 +63,10 @@
           <h3>Histórico de Quizzes</h3>
           {% for quiz in historico_quizzes %}
           <div class="quiz-item">
-            <span>{{ quiz.pilar }}</span><span>Nota: {{ quiz.nota }}</span>
+            <span>{{ quiz.pilar }}</span><span>Nota: {{ quiz.nota|floatformat:2 }}</span>
           </div>
+          {% empty %}
+          <p>Nenhum quiz respondido ainda.</p>
           {% endfor %}
         </div>
       </div>
@@ -88,11 +90,11 @@
       const chart = new Chart(ctx, {
         type: "line", // Tipo de gráfico
         data: {
-          labels: {{ meses | safe }}, // Meses fornecidos dinamicamente
+          labels: {{ meses|safe }}, // Quizzes fornecidos dinamicamente
           datasets: [
             {
-              label: "Nota Média por Mês",
-              data: {{ notas | safe }}, // Dados fornecidos dinamicamente
+              label: "Nota por Quiz",
+              data: {{ notas|safe }}, // Dados fornecidos dinamicamente
               borderColor: "rgba(75, 192, 192, 1)",
               borderWidth: 2,
               fill: false,
@@ -104,7 +106,7 @@
           scales: {
             y: {
               beginAtZero: true,
-              max: 10,
+              max: 12,
             },
           },
         },
@@ -112,3 +114,4 @@
     </script>
   </body>
 </html>
+

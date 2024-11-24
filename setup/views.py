@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.db.models import Avg
 from .forms import AlunoForm, ProfessorForm, RespostaForm
 from .models import Aluno, Professor, Turma, Resposta
 
@@ -27,15 +28,71 @@ def login(request):
             messages.error(request, "E-mail ou senha inválidos.")
     return render(request, 'login.html')
 
+def calcular_pontuacao(resposta):
+    pontos = 0
+    for i in range(1, 13):
+        campo = f'resposta_{i}'
+        valor = getattr(resposta, campo)
+        if isinstance(valor, bool):
+            pontos += 1 if valor else 0
+        elif isinstance(valor, str) and valor.strip():
+            pontos += 0.5
+    return pontos
+
 def dashboard(request):
     aluno_id = request.session.get('aluno_id')
     if not aluno_id:
         return redirect('setup:login')
     try:
         aluno = Aluno.objects.get(id=aluno_id)
+        respostas = Resposta.objects.filter(aluno=aluno)
+        
+        # Calcular pontuação média
+        pontuacoes = [calcular_pontuacao(r) for r in respostas]
+        pontuacao_media = sum(pontuacoes) / len(pontuacoes) if pontuacoes else 0
+        
+        # Quantidade de quizzes respondidos
+        quizzes_respondidos = respostas.count()
+        
+        # Atividades pendentes (assumindo que há 10 quizzes no total)
+        total_quizzes = 10
+        atividades_pendentes = total_quizzes - quizzes_respondidos
+        
+        # Progresso
+        progresso = (quizzes_respondidos / total_quizzes) * 100 if total_quizzes > 0 else 0
+        
+        # Histórico de quizzes (últimos 5)
+        historico_quizzes = [
+            {'pilar': f'Quiz {i+1}', 'nota': calcular_pontuacao(r)}
+            for i, r in enumerate(respostas.order_by('-id')[:5])
+        ]
+        
+        # Dados para o gráfico
+        meses = [f'Quiz {i+1}' for i in range(len(respostas))]
+        notas = [calcular_pontuacao(r) for r in respostas]
+        
+        # Pilares FOIL (exemplo)
+        pilares = [
+            ('F', 'Foco'),
+            ('O', 'Organização'),
+            ('I', 'Inovação'),
+            ('L', 'Liderança')
+        ]
+        
+        context = {
+            'aluno': aluno,
+            'progresso': progresso,
+            'quizzes_respondidos': quizzes_respondidos,
+            'atividades_pendentes': atividades_pendentes,
+            'nota_media': pontuacao_media,
+            'historico_quizzes': historico_quizzes,
+            'meses': meses,
+            'notas': notas,
+            'pilares': pilares,
+        }
+        return render(request, 'dashboard.html', context)
     except Aluno.DoesNotExist:
         return redirect('setup:login')
-    return render(request, 'dashboard.html', {'aluno': aluno})
 
 def quiz(request):
     aluno_id = request.session.get('aluno_id')
@@ -69,4 +126,3 @@ def cadastro_professor(request):
 def professor(request):
     # Implemente a lógica para a página do professor
     return render(request, 'professor.html')
-

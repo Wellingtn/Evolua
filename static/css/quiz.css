@@ -37,21 +37,38 @@ body {
     transform: scale(1.05); 
 }
 
-.container-topo{
-    text-align: center;
+.container-topo {
+    display: flex;
+    flex-direction: column; /* Alinha os elementos verticalmente */
+    justify-content: center; /* Centraliza verticalmente */
+    align-items: center; /* Centraliza horizontalmente */
     background-color: var(--primary);
     color: #fff;
-    padding: 20px;
-    font-size: 1.5em;
-    padding: 20px 0px 40px 10px ;
+    padding: 10%;
 }
 
 .container-topo .titulo {
     display: flex;
-    align-items: center;
-    text-align: center;
-    margin-left: 675px;
+    justify-content: flex-start; /* Define o alinhamento inicial */
+    align-items: center; /* Centraliza verticalmente */
+    text-align: center; /* Garante o alinhamento do texto */
+    margin: 0; /* Remove margens extras */
+    position: relative; /* Habilita o uso de 'left' */
+    left: 3%; /* Desloca o elemento para a direita em 3% */
 }
+
+
+
+
+.container-topo h1 {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2em;
+    margin: 0;
+}
+
+
 
 .container-topo h2 {
     font-size: 24px;
@@ -60,13 +77,13 @@ body {
     padding: 0px 0px 0px 0px;
 }
 
+
 .container-topo p {
     font-size: 16px;
     line-height: 1.6;
     margin-top: 20px;
-    padding: 0px 100px 0px 55px;
+    max-width: 800px;
 }
-
 .container-meio {
     display: flex;
     justify-content: center;
@@ -179,3 +196,21 @@ label {
     color: #fff;
     border-color: #00264d;
 }
+
+
+.titulo-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-topo h1 {
+    font-size: 2em;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* O restante do CSS permanece inalterado */
+

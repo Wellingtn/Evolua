@@ -18,15 +18,15 @@
             <a href="{% url 'setup:dashboard' %}" class="button-link">Visão Geral</a>
             <a href="#semestre" class="button-link">Semestres</a>
             <a href="{% url 'setup:quiz' %}" class="button-link">Trilha de Aprendizagem</a> 
-            <a href="{% url 'setup:index' %}">Sair</a>
+            <a href="{% url 'setup:index' %}" class="button-link">Sair</a>
         </div>
     </header>
     <section class="container-topo">
-        <div class="titulo">
+        <div class="titulo-wrapper">
             <h1>Quiz - Avaliação</h1>
+                <p>Este questionário busca entender as competências para determinar se você possui as características e habilidades ideais.</p>
         </div>
-        <p>Este questionário busca entender as competências para determinar se você possui as características e habilidades ideais.</p>
-    </section>
+   
     <form method="post">
         {% csrf_token %}
         <div class="container-perguntas">

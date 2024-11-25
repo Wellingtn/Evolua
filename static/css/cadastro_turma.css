@@ -23,12 +23,11 @@
             width: 250px;
             background-color: #1a3b5d;
             color: white;
-            padding: 30px 20px; /* Updated padding */
+            padding: 20px;
             height: 100vh;
         }
         .sidebar .logo {
-            width: 100%; /* Updated width */
-            max-width: 220px; /* Updated max-width */
+            width: 200px;
             margin-bottom: 30px;
         }
         .sidebar nav {

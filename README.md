@@ -2,8 +2,6 @@
 
 ## Oque falta:
     
-    -ajustar turmas no dashboard do profefessor (Dashboard Professor)
-  
 ## Oque foi feito:
     - Login e cadastro funcional (Login e Cadastro)
     - Tela de Dashboard com os dados do usuario (Dashboard)
@@ -19,6 +17,10 @@
     - Ajustes na tela de selecionar usuario(selecao)
     - Ajustes na tela de cadastro (Cadastro)
     - Fazer aparecer os formularios já respondidos (Dashboard)
+    -ajustar turmas no dashboard do profefessor (Dashboard Professor)
+    -Ajustar templates de cadatro de turma
+    -Ajustar templates de listagem de turmas
+  
 
 ## Como rodar o projeto:
     1. Clone o repositorio

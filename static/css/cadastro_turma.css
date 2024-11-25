@@ -1,150 +1,141 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minhas Turmas - Evolua</title>
-    <link rel="stylesheet" href="{% static 'css/cadastro_turma.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700;900&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-            font-family: 'Montserrat', sans-serif;
-            margin: 0;
-            background-color: #1E1E1E;
-            color: #fff;
-        }
-        .container {
-            display: flex;
-            min-height: 100vh;
-        }
-        .sidebar {
-            width: 250px;
-            background-color: #1a3b5d;
-            color: white;
-            padding: 20px;
-            height: 100vh;
-        }
-        .sidebar .logo {
-            width: 200px;
-            margin-bottom: 30px;
-        }
-        .sidebar nav {
-            display: flex;
-            flex-direction: column;
-        }
-        .sidebar nav a {
-            color: white;
-            text-decoration: none;
-            padding: 10px 0;
-            font-size: 18px;
-        }
-        .sidebar nav a.active {
-            font-weight: bold;
-        }
-        .main-content {
-            flex-grow: 1;
-            padding: 20px 40px;
-            background-color: #1E1E1E;
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-        .header h1 {
-            font-size: 24px;
-            color: #fff;
-        }
-        .btn-submit {
-            background-color: #1a3b5d;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-size: 14px;
-        }
-        .turmas-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-        .turma-item {
-            background-color: #2D2D2D;
-            border-radius: 8px;
-            padding: 20px;
-        }
-        .turma-item h2 {
-            font-size: 20px;
-            margin-bottom: 10px;
-            color: #fff;
-        }
-        .turma-item p {
-            color: #B4B4B4;
-            margin-bottom: 15px;
-        }
-        .alunos-list {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-            color: #B4B4B4;
-        }
-        .alunos-list li {
-            padding: 4px 0;
-        }
-        .btn-view {
-            display: inline-block;
-            background-color: transparent;
-            color: #fff;
-            padding: 8px 16px;
-            border: 1px solid #fff;
-            border-radius: 4px;
-            text-decoration: none;
-            font-size: 14px;
-            margin-top: 15px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="sidebar">
-            <img src="{% static 'css/images/evolua-logo-branco(1).svg' %}" alt="Evolua Logo" class="logo">
-            <nav>
-                <a href="{% url 'setup:professor' %}">Visão Geral</a>
-                <a href="{% url 'setup:listar_turmas' %}" class="active">Turmas</a>
-                <a href="{% url 'setup:index' %}">Sair</a>
-            </nav>
-        </div>
-        
-        <div class="main-content">
-            <div class="header">
-                <h1>Minhas Turmas</h1>
-                <a href="{% url 'setup:cadastrar_turma' %}" class="btn-submit">Cadastrar Nova Turma</a>
-            </div>
-            
-            <div class="turmas-list">
-                {% for turma in turmas %}
-                    <div class="turma-item">
-                        <h2>{{ turma.nome }}</h2>
-                        <p>Professor: {{ turma.professor.nome }}</p>
-                        <h3 style="color: #B4B4B4; margin-bottom: 10px;">Alunos:</h3>
-                        <ul class="alunos-list">
-                            {% for aluno in turma.alunos.all %}
-                                <li>{{ aluno.nome }} {{ aluno.sobrenome }}</li>
-                            {% empty %}
-                                <li>Nenhum aluno cadastrado</li>
-                            {% endfor %}
-                        </ul>
-                        <a href="{% url 'setup:professor' %}?turma={{ turma.id_turma }}" class="btn-view">Ver Detalhes</a>
-                    </div>
-                {% empty %}
-                    <p class="text-gray-400">Nenhuma turma cadastrada.</p>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-</body>
-</html>
+@import url('style-guide.css');
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background);
+    color: var(--text-primary);
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: var(--primary);
+    padding: 20px;
+    color: var(--white-primary);
+}
+
+.logo {
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar nav a {
+    color: var(--white-primary);
+    text-decoration: none;
+    padding: 10px 0;
+    font-size: var(--font-size-p2);
+}
+
+.sidebar nav a.active {
+    font-weight: bold;
+}
+
+.main-content {
+    flex: 1;
+    padding: 40px;
+}
+
+h1 {
+    color: var(--primary);
+    font-size: var(--font-size-h1);
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: var(--font-size-p2);
+}
+
+input[type="text"], select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: var(--font-size-p2);
+}
+
+.alunos-container {
+    display: flex;
+    gap: 20px;
+}
+
+.alunos-list {
+    flex: 1;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 15px;
+}
+
+.alunos-list h3 {
+    margin-top: 0;
+    font-size: var(--font-size-h3);
+    color: var(--primary);
+}
+
+.alunos-list ul {
+    list-style-type: none;
+    padding: 0;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.alunos-list li {
+    margin-bottom: 10px;
+}
+
+.btn-submit {
+    background-color: var(--primary);
+    color: var(--white-primary);
+    border: none;
+    padding: 12px 20px;
+    font-size: var(--font-size-b2);
+    font-weight: var(--font-weight-button);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-submit:hover {
+    background-color: var(--primary-dark);
+}
+
+.alunos-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.aluno-item {
+    background-color: #f0f0f0;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.new-column {
+    break-before: column;
+}
+
+.turma-item {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin-bottom: 20px;
+}
 

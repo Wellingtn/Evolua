@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmar Exclusão de Turma - Evolua</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            background-color: #1E1E1E;
+            color: #fff;
+        }
+        .container {
+            display: flex;
+            min-height: 100vh;
+            position: relative;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #1a3b5d;
+            color: white;
+            padding: 30px 20px;
+            height: 100vh;
+        }
+        .sidebar .logo {
+            width: 100%;
+            max-width: 220px;
+            margin-bottom: 30px;
+        }
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+        }
+        .sidebar nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 0;
+            font-size: 18px;
+        }
+        .sidebar nav a.active {
+            font-weight: bold;
+        }
+        .main-content {
+            flex-grow: 1;
+            padding: 20px 40px;
+            background-color: #1E1E1E;
+        }
+        .header {
+            margin-bottom: 20px;
+        }
+        .confirmation-box {
+            background-color: #2D2D2D;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 600px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .btn-danger {
+            background-color: #e53e3e;
+            color: white;
+        }
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <img src="{% static 'css/images/evolua-logo-branco(1).svg' %}" alt="Evolua Logo" class="logo">
+            <nav>
+                <a href="{% url 'setup:professor' %}">Visão Geral</a>
+                <a href="{% url 'setup:listar_turmas' %}">Turmas</a>
+                <a href="{% url 'setup:index' %}">Sair</a>
+            </nav>
+        </div>
+        
+        <div class="main-content">
+            <div class="header">
+                <h1 class="text-3xl font-bold mb-6">Confirmar Exclusão</h1>
+            </div>
+            <div class="confirmation-box">
+                <p class="mb-6">Tem certeza que deseja excluir a turma "{{ turma.nome }}"?</p>
+                <form method="post" class="flex justify-end space-x-4">
+                    {% csrf_token %}
+                    <a href="{% url 'setup:listar_turmas' %}" class="btn btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-danger">Confirmar Exclusão</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+

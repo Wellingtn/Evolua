@@ -315,3 +315,17 @@ def exportar_pdf(request, aluno_id, resposta_id):
     if pisa_status.err:
        return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
+
+def excluir_turma(request, turma_id):
+    professor_id = request.session.get('professor_id')
+    if not professor_id:
+        return redirect('setup:login_professor')
+
+    turma = get_object_or_404(Turma, id_turma=turma_id, professor_id=professor_id)
+    
+    if request.method == 'POST':
+        turma.delete()
+        messages.success(request, f'A turma "{turma.nome}" foi excluída com sucesso.')
+        return redirect('setup:listar_turmas')
+    
+    return render(request, 'confirmar_exclusao_turma.html', {'turma': turma})

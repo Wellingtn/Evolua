@@ -95,16 +95,25 @@
         .alunos-list li {
             padding: 4px 0;
         }
-        .btn-view {
-            display: inline-block;
-            background-color: transparent;
-            color: #fff;
+        .btn-view, .btn-danger {
+            display: inline-flex;
+            align-items: center;
             padding: 8px 16px;
-            border: 1px solid #fff;
             border-radius: 4px;
             text-decoration: none;
             font-size: 14px;
-            margin-top: 15px;
+        }
+        .btn-view {
+            background-color: transparent;
+            color: #fff;
+            border: 1px solid #fff;
+        }
+        .btn-danger {
+            background-color: #e53e3e;
+            color: white;
+        }
+        .space-x-2 > * + * {
+            margin-left: 0.5rem;
         }
     </style>
 </head>
@@ -138,7 +147,10 @@
                                 <li>Nenhum aluno cadastrado</li>
                             {% endfor %}
                         </ul>
-                        <a href="{% url 'setup:professor' %}?turma={{ turma.id_turma }}" class="btn-view">Ver Detalhes</a>
+                        <div class="flex justify-end items-center mt-4 space-x-2">
+                            <a href="{% url 'setup:professor' %}?turma={{ turma.id_turma }}" class="btn-view">Ver Detalhes</a>
+                            <a href="{% url 'setup:excluir_turma' turma.id_turma %}" class="btn-danger">Excluir</a>
+                        </div>
                     </div>
                 {% empty %}
                     <p class="text-gray-400">Nenhuma turma cadastrada.</p>
@@ -148,4 +160,6 @@
     </div>
 </body>
 </html>
+
+
 

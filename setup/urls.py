@@ -16,5 +16,7 @@ urlpatterns = [
     path('professor/aluno/<int:aluno_id>/quiz/<int:resposta_id>/', views.detalhes_quiz_professor, name='detalhes_quiz_professor'),
     path('aluno/quiz/<int:resposta_id>/', views.detalhes_quiz_aluno, name='detalhes_quiz_aluno'),
     path('professor/aluno/<int:aluno_id>/quiz/<int:resposta_id>/pdf/', views.exportar_pdf, name='exportar_pdf'),
+    path('professor/turmas/excluir/<int:turma_id>/', views.excluir_turma, name='excluir_turma'),
 ]
+
 

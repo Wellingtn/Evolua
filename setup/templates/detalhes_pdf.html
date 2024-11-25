@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalhes do Aluno - {{ aluno.nome }} {{ aluno.sobrenome }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        h1 { color: #0056b3; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h1>Detalhes do Aluno</h1>
+    <p><strong>Nome:</strong> {{ aluno.nome }} {{ aluno.sobrenome }}</p>
+    <p><strong>RA:</strong> {{ aluno.ra }}</p>
+    <p><strong>Curso:</strong> {{ aluno.curso }}</p>
+    <p><strong>Semestre:</strong> {{ aluno.semestre }}</p>
+
+    <h2>Respostas do Questionário</h2>
+    <table>
+        <tr>
+            <th>Pergunta</th>
+            <th>Resposta</th>
+        </tr>
+        <tr>
+            <td>Você está atualmente empregado?</td>
+            <td>{% if resposta.resposta_1 %}Sim{% else %}Não{% endif %}</td>
+        </tr>
+        <tr>
+            <td>Você está trabalhando na área que deseja?</td>
+            <td>{% if resposta.resposta_2 %}Sim{% else %}Não{% endif %}</td>
+        </tr>
+        <tr>
+            <td>Você se considera uma pessoa com conhecimento em tecnologia?</td>
+            <td>{% if resposta.resposta_3 %}Sim{% else %}Não{% endif %}</td>
+        </tr>
+        <tr>
+            <td>Quais habilidades técnicas você tem que podem auxiliar na sua carreira?</td>
+            <td>{{ resposta.resposta_4|default:"Não respondido" }}</td>
+        </tr>
+        <tr>
+            <td>Você tem facilidade de se comunicar com as pessoas?</td>
+            <td>{% if resposta.resposta_5 %}Sim{% else %}Não{% endif %}</td>
+        </tr>
+        <tr>
+            <td>Você se considera uma pessoa organizada em suas atividades diárias?</td>
+            <td>{% if resposta.resposta_6 %}Sim{% else %}Não{% endif %}</td>
+        </tr>
+        <tr>
+            <td>Você sabe falar um idioma estrangeiro?</td>
+            <td>{% if resposta.resposta_7 %}Sim{% else %}Não{% endif %}</td>
+        </tr>
+        <tr>
+            <td>Você tem interesse em aprender sobre culturas diferentes?</td>
+            <td>{% if resposta.resposta_8 %}Sim{% else %}Não{% endif %}</td>
+        </tr>
+        <tr>
+            <td>Você sabe qual é sua vocação?</td>
+            <td>{{ resposta.resposta_9|default:"Não respondido" }}</td>
+        </tr>
+        <tr>
+            <td>Você pratica alguma atividade artística ou física?</td>
+            <td>{% if resposta.resposta_10 %}Sim{% else %}Não{% endif %}</td>
+        </tr>
+        <tr>
+            <td>Quais são suas soft skills mais valorizadas?</td>
+            <td>{{ resposta.resposta_11|default:"Não respondido" }}</td>
+        </tr>
+        <tr>
+            <td>Onde você quer estar daqui a 1 ano, 5 e 10 anos?</td>
+            <td>{{ resposta.resposta_12|default:"Não respondido" }}</td>
+        </tr>
+    </table>
+</body>
+</html>
+

@@ -4,6 +4,11 @@ from django.db.models import Avg
 from .forms import AlunoForm, ProfessorForm, RespostaForm, TurmaForm
 from .models import Aluno, Professor, Turma, Resposta
 from django.contrib.auth.hashers import make_password, check_password
+from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+from io import BytesIO
+
 
 
 def seleciona_usuario(request):
@@ -286,3 +291,27 @@ def detalhes_quiz_aluno(request, resposta_id):
         'resposta': resposta,
     }
     return render(request, 'detalhes_quiz_aluno.html', context)
+
+def exportar_pdf(request, aluno_id, resposta_id):
+    aluno = get_object_or_404(Aluno, id=aluno_id)
+    resposta = get_object_or_404(Resposta, id=resposta_id, aluno=aluno)
+
+    template_path = 'detalhes_pdf.html'
+    context = {'aluno': aluno, 'resposta': resposta}
+    
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="detalhes_{aluno.nome}_{aluno.sobrenome}.pdf"'
+    
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+    
+    # if error then show some funny view
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response

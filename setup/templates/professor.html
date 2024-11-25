@@ -89,7 +89,7 @@
               <td>{{ aluno.total_pontos|floatformat:2 }} pontos</td>
               <td class="actions">
                 <a href="{% url 'setup:detalhes_quiz_professor' aluno_id=aluno.id resposta_id=aluno.ultima_resposta_id %}" class="btn btn-details">Detalhes</a>
-                <button class="btn btn-export">Exportar PDF</button>
+                <a href="{% url 'setup:exportar_pdf' aluno_id=aluno.id resposta_id=aluno.ultima_resposta_id %}" class="btn btn-export">Exportar PDF</a>
               </td>
             </tr>
             {% endfor %}

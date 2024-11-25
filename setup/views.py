@@ -174,6 +174,8 @@ def professor(request):
         pilares = ['Trabalho', 'Estudo', 'Alta Moralidade', 'Internacionalidade', 'FOIL']
         medias_pilares = {pilar: 0 for pilar in pilares}
         
+        alunos_count = 0 # Update 1: Added alunos_count
+        
         alunos_info = []
         for turma in turmas:
             if selected_turma_id and int(selected_turma_id) != turma.id_turma:
@@ -182,26 +184,35 @@ def professor(request):
                 respostas = Resposta.objects.filter(aluno=aluno)
                 if respostas.exists():
                     ultima_resposta = respostas.latest('id')
-                    notas_aluno = [calcular_pontuacao(r) for r in respostas]
-                    media_aluno = sum(notas_aluno) / len(notas_aluno)
                     
-                    notas_pilares = [media_aluno] * 5
+                    # Calculate individual pillar scores
+                    trabalho = (ultima_resposta.resposta_1 or 0) + (ultima_resposta.resposta_2 or 0)
+                    estudo = (ultima_resposta.resposta_3 or 0) + (0.5 if ultima_resposta.resposta_4 else 0)
+                    alta_moralidade = (ultima_resposta.resposta_5 or 0) + (ultima_resposta.resposta_6 or 0)
+                    internacionalidade = (ultima_resposta.resposta_7 or 0) + (ultima_resposta.resposta_8 or 0)
+                    foil = (0.5 if ultima_resposta.resposta_9 else 0) + (ultima_resposta.resposta_10 or 0) + \
+                           (0.5 if ultima_resposta.resposta_11 else 0) + (0.5 if ultima_resposta.resposta_12 else 0)
+                    
+                    notas_pilares = [trabalho, estudo, alta_moralidade, internacionalidade, foil]
+                    total_pontos_aluno = sum(notas_pilares)
+                    
+                    alunos_count += 1 # Update 2: Incremented alunos_count
                     
                     alunos_info.append({
                         'id': aluno.id,
                         'nome': f"{aluno.nome} {aluno.sobrenome}",
                         'notas_pilares': notas_pilares,
-                        'media_final': media_aluno,
+                        'total_pontos': total_pontos_aluno,
                         'ultima_resposta_id': ultima_resposta.id,
                         'turma_nome': turma.nome
                     })
-                        
+                    
                     for i, pilar in enumerate(pilares):
                         medias_pilares[pilar] += notas_pilares[i]
         
-        # Calculando a média final para cada pilar
+        # Calculando a média de pontos para cada pilar # Update 3: Replaced calculation
         for pilar in pilares:
-            medias_pilares[pilar] = round(medias_pilares[pilar] / len(alunos_info) if alunos_info else 0, 2)
+            medias_pilares[pilar] = round(medias_pilares[pilar] / alunos_count if alunos_count > 0 else 0, 2)
         
         context = {
             'professor': professor,
@@ -216,6 +227,7 @@ def professor(request):
         return render(request, 'professor.html', context)
     except Professor.DoesNotExist:
         return redirect('setup:login_professor')
+
 
 def cadastrar_turma(request):
     professor_id = request.session.get('professor_id')

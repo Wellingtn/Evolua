@@ -46,4 +46,3 @@ class Resposta(models.Model):
 
     def __str__(self):
         return f"Respostas de {self.aluno.nome} {self.aluno.sobrenome}"
-

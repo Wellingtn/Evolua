@@ -338,3 +338,51 @@ h1 {
 .students-table .btn-details:hover {
   background-color: #2980b9;
 }
+
+/* Estilização atualizada para o seletor de turmas */
+.class-selector {
+  margin-bottom: 20px;
+}
+
+.class-selector select {
+  width: 100%; 
+  padding: 18px; 
+  border: 1px solid #dcdcdc;
+  border-radius: 8px; 
+  background-color: transparent; 
+  color: var(--primary);
+  box-sizing: border-box; 
+  font-size: var(--font-size-p2, 16px); 
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%230056b3" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 24px;
+  cursor: pointer;
+}
+
+.class-selector select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.class-selector select option {
+  background-color: #fff;
+  color: var(--primary);
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.table-header h3 {
+  margin: 0;
+  font-size: 24px;
+  color: var(--primary);
+}

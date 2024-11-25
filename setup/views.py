@@ -166,15 +166,18 @@ def professor(request):
         professor = Professor.objects.get(id=professor_id)
         turmas = Turma.objects.filter(professor=professor)
         
+        selected_turma_id = request.GET.get('turma')
+        
         total_cursos = turmas.count()
         total_alunos = sum(turma.alunos.count() for turma in turmas)
         
-        # Cálculo das médias dos pilares (exemplo simplificado)
         pilares = ['Trabalho', 'Estudo', 'Alta Moralidade', 'Internacionalidade', 'FOIL']
         medias_pilares = {pilar: 0 for pilar in pilares}
         
         alunos_info = []
         for turma in turmas:
+            if selected_turma_id and int(selected_turma_id) != turma.id_turma:
+                continue
             for aluno in turma.alunos.all():
                 respostas = Resposta.objects.filter(aluno=aluno)
                 if respostas.exists():
@@ -182,7 +185,6 @@ def professor(request):
                     notas_aluno = [calcular_pontuacao(r) for r in respostas]
                     media_aluno = sum(notas_aluno) / len(notas_aluno)
                     
-                    # Simulando notas para cada pilar (você precisará ajustar isso com base em sua lógica real)
                     notas_pilares = [media_aluno] * 5
                     
                     alunos_info.append({
@@ -190,18 +192,21 @@ def professor(request):
                         'nome': f"{aluno.nome} {aluno.sobrenome}",
                         'notas_pilares': notas_pilares,
                         'media_final': media_aluno,
-                        'ultima_resposta_id': ultima_resposta.id
+                        'ultima_resposta_id': ultima_resposta.id,
+                        'turma_nome': turma.nome
                     })
                         
                     for i, pilar in enumerate(pilares):
                         medias_pilares[pilar] += notas_pilares[i]
-            
+        
         # Calculando a média final para cada pilar
         for pilar in pilares:
             medias_pilares[pilar] = round(medias_pilares[pilar] / len(alunos_info) if alunos_info else 0, 2)
         
         context = {
             'professor': professor,
+            'turmas': turmas,
+            'selected_turma_id': int(selected_turma_id) if selected_turma_id else None,
             'total_cursos': total_cursos,
             'total_alunos': total_alunos,
             'medias_pilares': medias_pilares,

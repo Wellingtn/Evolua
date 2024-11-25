@@ -13,7 +13,7 @@
       <img src="{% static 'css/images/evolua-logo-branco(1).svg' %}" alt="Evolua Logo" />
       <a href="{% url 'setup:professor' %}">Visão Geral</a>
       <a href="{% url 'setup:listar_turmas' %}">Turmas</a>
-      <a href="{% url 'setup:seleciona_usuario' %}">Sair</a>
+      <a href="{% url 'setup:index' %}">Sair</a>
     </div>
 
     <!-- Conteúdo Principal -->
@@ -50,13 +50,27 @@
         {% endfor %}
       </div>
 
+
       <!-- Tabela de Alunos -->
       <div class="students-table">
-        <h3>Alunos e Notas</h3>
+        <div class="table-header">
+          <h3>Alunos e Notas</h3>
+          <div class="class-selector">
+            <select id="turma-select">
+              <option value="">Todas as Turmas</option>
+              {% for turma in turmas %}
+                <option value="{{ turma.id_turma }}" {% if turma.id_turma == selected_turma_id %}selected{% endif %}>
+                  {{ turma.nome }}
+                </option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
         <table>
           <thead>
             <tr>
               <th>Aluno</th>
+              <th>Turma</th>
               <th>Pilar Trabalho</th>
               <th>Pilar Estudo</th>
               <th>Pilar Alta Moralidade</th>
@@ -66,30 +80,33 @@
               <th>Ações</th>
             </tr>
           </thead>
-          <tbody>
-            <tbody>
-              {% for aluno in alunos_info %}
-              <tr>
-                <td>{{ aluno.nome }}</td>
-                {% for nota in aluno.notas_pilares %}
-                <td>{{ nota|floatformat:2 }}</td>
-                {% endfor %}
-                <td>{{ aluno.media_final|floatformat:2 }}</td>
-                <td class="actions">
-                  <a href="{% url 'setup:detalhes_quiz_professor' aluno_id=aluno.id resposta_id=aluno.ultima_resposta_id %}" class="btn btn-details">Detalhes</a>
-                  <button class="btn btn-export">Exportar PDF</button>
-                </td>
-              </tr>
+          <tbody id="alunos-tbody">
+            {% for aluno in alunos_info %}
+            <tr>
+              <td>{{ aluno.nome }}</td>
+              <td>{{ aluno.turma_nome }}</td>
+              {% for nota in aluno.notas_pilares %}
+              <td>{{ nota|floatformat:2 }}</td>
               {% endfor %}
-            </tbody>
+              <td>{{ aluno.media_final|floatformat:2 }}</td>
+              <td class="actions">
+                <a href="{% url 'setup:detalhes_quiz_professor' aluno_id=aluno.id resposta_id=aluno.ultima_resposta_id %}" class="btn btn-details">Detalhes</a>
+                <button class="btn btn-export">Exportar PDF</button>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
         </table>
       </div>
     </div>
 
-    <!-- Script para o gráfico (exemplo com Chart.js) -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Script para filtrar alunos por turma -->
     <script>
-      // Você pode adicionar a lógica do gráfico aqui se necessário
+      document.getElementById('turma-select').addEventListener('change', function() {
+        const selectedTurmaId = this.value;
+        window.location.href = `?turma=${selectedTurmaId}`;
+      });
     </script>
   </body>
 </html>
+
